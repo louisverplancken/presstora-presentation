@@ -1,14 +1,14 @@
-/* Échelle web : base 18 px, tierce majeure (ratio 1,25).
+/* Échelle web : base 16 px, tierce majeure (ratio 1,25).
    Les petits écrans utilisent les mêmes niveaux avec des rôles adaptés. */
 :root{
- --type-small:14.4px;
- --type-base:18px;
- --type-1:22.5px;
- --type-2:28.125px;
- --type-3:35.15625px;
- --type-4:43.9453125px;
- --type-5:54.931640625px;
- --type-6:68.66455078125px;
+ --type-small:12.8px;
+ --type-base:16px;
+ --type-1:20px;
+ --type-2:25px;
+ --type-3:31.25px;
+ --type-4:39.0625px;
+ --type-5:48.828125px;
+ --type-6:61.03515625px;
  --type-hero:var(--type-6);
  --type-section:var(--type-4);
  --type-card:var(--type-2);
