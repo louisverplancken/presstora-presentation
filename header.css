@@ -1,12 +1,12 @@
 /* Essai issu du croquis Header.pdf : 12 colonnes sur la fenêtre.
-   A = 1/2 colonne latéralement ; B = 1/4 colonne verticalement.
+   A = 1/4 colonne latéralement ; B = 1/4 colonne verticalement.
    Le logo et le groupe de navigation partagent le même axe central. */
 header.nav.header-column-grid {
  --header-column:calc(100vw / 12);
  max-width:none;
  width:100%;
  margin:0;
- padding:calc(var(--header-column) / 4) calc(var(--header-column) / 2);
+ padding:calc(var(--header-column) / 4);
  display:flex;
  flex-wrap:nowrap;
  align-items:center;
