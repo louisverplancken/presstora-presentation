@@ -62,3 +62,8 @@ summary{font-size:var(--type-base);line-height:1.5}
  .offer-bridge>div{grid-template-columns:1fr}
  .primary{flex-wrap:wrap}
 }
+
+/* Repères décoratifs des surtitres, teinte héritée du texte. */
+.eyebrow,.period{display:flex;align-items:center;gap:10px}
+.eyebrow-icon{width:1em;height:1em;min-width:16px;min-height:16px;flex:none}
+.hero .eyebrow{align-items:center}
