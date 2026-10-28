@@ -187,13 +187,20 @@
  }
 }
 
-/* Repères client / professionnel : accents de marque, texte contrasté. */
+/* Repères inspirés des catégories de l'application : picto vif, texte sombre. */
+.commercial #origine .landing-benefits article { --label-fill:var(--lime); --label-ink:#657700; }
+.commercial #origine .landing-benefits article:last-child { --label-fill:var(--violet); --label-ink:#6753B8; }
 .commercial #origine .landing-benefits .landing-label {
- width:fit-content;
- max-width:100%;
- padding:4px 8px;
- border-radius:4px;
- color:var(--navy);
- background:var(--lime);
+ color:var(--label-ink);
 }
-.commercial #origine .landing-benefits article:last-child .landing-label { background:var(--violet); }
+.commercial #origine .landing-label-marker {
+ display:grid;
+ place-items:center;
+ flex:none;
+ width:28px;
+ height:28px;
+ border:1px solid var(--label-ink);
+ border-radius:4px;
+ background:var(--label-fill);
+ color:var(--navy);
+}
