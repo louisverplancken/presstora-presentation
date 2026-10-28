@@ -133,6 +133,7 @@
  --section-a:calc(var(--section-column) / 2);
  --section-b:calc(var(--section-column) / 4);
  --section-radius:16px;
+ --section-junction-radius:7px;
 }
 .commercial #origine .landing-section-head {
  display:grid;
@@ -164,6 +165,13 @@
  border-radius:calc(var(--section-radius) - 1px);
  background:white;
 }
+/* Petits arrondis aux jonctions, comme le token junction-radius de l'app. */
+.commercial #origine .landing-benefits article:first-child {
+ border-radius:calc(var(--section-radius) - 1px) var(--section-junction-radius) var(--section-junction-radius) calc(var(--section-radius) - 1px);
+}
+.commercial #origine .landing-benefits article:last-child {
+ border-radius:var(--section-junction-radius) calc(var(--section-radius) - 1px) calc(var(--section-radius) - 1px) var(--section-junction-radius);
+}
 .commercial #origine .landing-benefits p { max-width:52ch; }
 @media(max-width:700px) {
  .commercial #origine { --section-a:24px; --section-b:24px; }
@@ -171,4 +179,10 @@
  .commercial #origine .landing-section-note { align-items:flex-start; text-align:left; }
  .commercial #origine .landing-section-note p { max-width:100%; }
  .commercial #origine .landing-benefits { grid-template-columns:1fr; }
+ .commercial #origine .landing-benefits article:first-child {
+  border-radius:calc(var(--section-radius) - 1px) calc(var(--section-radius) - 1px) var(--section-junction-radius) var(--section-junction-radius);
+ }
+ .commercial #origine .landing-benefits article:last-child {
+  border-radius:var(--section-junction-radius) var(--section-junction-radius) calc(var(--section-radius) - 1px) calc(var(--section-radius) - 1px);
+ }
 }
