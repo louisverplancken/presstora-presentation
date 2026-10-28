@@ -204,3 +204,10 @@
  background:var(--label-fill);
  color:var(--label-ink);
 }
+
+/* Première idée mise en avant, détails dans un second paragraphe. */
+.commercial #origine .landing-benefits .benefit-intro {
+ color:var(--navy);
+ font-weight:700;
+ margin-bottom:16px;
+}
