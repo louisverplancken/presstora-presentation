@@ -1,0 +1,28 @@
+/* Essai issu du croquis Header.pdf : 12 colonnes sur la fenêtre.
+   A = 1/2 colonne latéralement ; B = 1/4 colonne verticalement.
+   Le logo et le groupe de navigation partagent le même axe central. */
+header.nav.header-column-grid {
+ --header-column:calc(100vw / 12);
+ max-width:none;
+ width:100%;
+ margin:0;
+ padding:calc(var(--header-column) / 4) calc(var(--header-column) / 2);
+ display:flex;
+ flex-wrap:nowrap;
+ align-items:center;
+ justify-content:space-between;
+ gap:32px;
+}
+header.header-column-grid>a { flex:none; display:flex; align-items:center; }
+header.header-column-grid img { display:block; width:166px; height:auto; }
+header.nav.header-column-grid nav { display:flex; width:auto; flex-wrap:nowrap; align-items:center; justify-content:flex-end; gap:32px; }
+header.nav.header-column-grid nav>a { display:inline-flex; align-items:center; white-space:nowrap; }
+header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
+/* L'essai en fractions de colonnes concerne l'écran large.
+   Sur petit écran, les liens reviennent à la ligne avec des retraits minimaux. */
+@media(max-width:900px) {
+ header.nav.header-column-grid { padding:20px 24px; flex-wrap:wrap; gap:20px; }
+ header.header-column-grid img { width:145px; }
+ header.nav.header-column-grid nav { width:100%; flex-wrap:wrap; justify-content:flex-start; gap:12px 24px; }
+ header.nav.header-column-grid nav>a { font-size:12.8px; min-height:44px; }
+}
