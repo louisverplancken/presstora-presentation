@@ -65,5 +65,5 @@ summary{font-size:var(--type-base);line-height:1.5}
 
 /* Repères décoratifs des surtitres, teinte héritée du texte. */
 .eyebrow,.period{display:flex;align-items:center;gap:10px}
-.eyebrow-icon{width:1em;height:1em;min-width:16px;min-height:16px;flex:none}
+.eyebrow-icon{width:16px;height:16px;min-width:16px;min-height:16px;max-width:16px;max-height:16px;flex:0 0 16px}
 .hero .eyebrow{align-items:center}
