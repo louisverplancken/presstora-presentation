@@ -186,3 +186,14 @@
   border-radius:var(--section-junction-radius) var(--section-junction-radius) calc(var(--section-radius) - 1px) calc(var(--section-radius) - 1px);
  }
 }
+
+/* Repères client / professionnel : accents de marque, texte contrasté. */
+.commercial #origine .landing-benefits .landing-label {
+ width:fit-content;
+ max-width:100%;
+ padding:4px 8px;
+ border-radius:4px;
+ color:var(--navy);
+ background:var(--lime);
+}
+.commercial #origine .landing-benefits article:last-child .landing-label { background:var(--violet); }
