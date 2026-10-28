@@ -1,0 +1,64 @@
+/* Échelle web : base 18 px, tierce majeure (ratio 1,25).
+   Les petits écrans utilisent les mêmes niveaux avec des rôles adaptés. */
+:root{
+ --type-small:14.4px;
+ --type-base:18px;
+ --type-1:22.5px;
+ --type-2:28.125px;
+ --type-3:35.15625px;
+ --type-4:43.9453125px;
+ --type-5:54.931640625px;
+ --type-6:68.66455078125px;
+ --type-hero:var(--type-6);
+ --type-section:var(--type-4);
+ --type-card:var(--type-2);
+ --type-hero-label:var(--type-1);
+}
+body{font-size:var(--type-base);line-height:1.6}
+h1,h2,h3{letter-spacing:0;text-wrap:balance}
+h1,.brand-hero h1{font-size:var(--type-hero);line-height:1.15;max-width:1200px}
+h2,.brand-section h2,.questions h2,.selection h2,.offer-bridge h2{font-size:var(--type-section);line-height:1.2}
+h3,.package h3,.evolution h3,.explain-grid h3,.identity-notes h3{font-size:var(--type-card);line-height:1.25}
+.brand-signature h3{font-size:var(--type-3);line-height:1.25}
+.purpose-grid h3{font-size:var(--type-1);line-height:1.5;text-wrap:pretty}
+.eyebrow,.period,.mini-title{font-size:var(--type-small);line-height:1.5;letter-spacing:.06em}
+.hero .eyebrow{font-size:var(--type-hero-label);letter-spacing:.04em;align-items:baseline}
+.hero .eyebrow span{flex:none;align-self:center}
+.hero>p,.position-lead,.positioning .position-lead{font-size:var(--type-1);line-height:1.6;max-width:65ch}
+.hero>p br{display:none}
+nav a,.hero-foot>a,.package .toggle,.text-button,.primary,.chip{font-size:var(--type-base);line-height:1.5}
+.evolution p,.purpose-grid p,.positioning p,.positioning dd,.values-grid details>div,.identity-notes p,.brand-signature p,.horizons p,.explain-grid p,.faq p,.offer-bridge p,.package .intro,.features li,.option,.dependency,.option-summary,.selection-action p,#feedback,.heritage b{font-size:var(--type-base);line-height:1.6}
+.values-grid summary,.offer-bridge b{font-size:var(--type-1);line-height:1.3}
+.values-grid p{font-size:var(--type-base);line-height:1.5}
+.draft,.section-heading>p,.tag,.features .included,.option small,.package-note,.caption,.selection-action>span,.selection-action small,.step,.note,.purpose-note,.heritage,.values-grid details>div span,footer p,footer>span{font-size:var(--type-small);line-height:1.6}
+.features .included{white-space:normal}
+.selection-action strong{font-size:var(--type-2);line-height:1.3}
+summary{font-size:var(--type-base);line-height:1.5}
+.package-top{min-height:360px}
+.package .intro{min-height:0}
+.features{min-height:270px}
+.package .toggle{min-height:78px}
+.selection-content{grid-template-columns:minmax(0,1fr) 340px}
+.selection-header{flex-wrap:wrap}
+.nav nav{flex-wrap:wrap}
+.relationship{max-width:65ch;line-height:1.6}
+@media(max-width:1150px){
+ :root{--type-hero:var(--type-5);--type-section:var(--type-3)}
+ .nav{flex-wrap:wrap}.nav nav{gap:20px}
+ .features{min-height:230px}
+}
+@media(max-width:700px){
+ :root{--type-hero:var(--type-3);--type-section:var(--type-2);--type-card:var(--type-1);--type-hero-label:var(--type-base)}
+ .hero>p,.position-lead{font-size:var(--type-base)}
+ .hero .eyebrow{letter-spacing:.025em}
+ .brand-signature h3{font-size:var(--type-2)}
+ .package-top{min-height:0}
+ .package .toggle{min-height:0}
+ .features{min-height:0}
+ .selection-content{grid-template-columns:minmax(0,1fr)}
+ .nav nav{gap:12px}
+ .nav .nav-cta{margin-left:0}
+ .section-heading>p{max-width:100%}
+ .offer-bridge>div{grid-template-columns:1fr}
+ .primary{flex-wrap:wrap}
+}
