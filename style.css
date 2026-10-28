@@ -11,3 +11,7 @@
 
 /* Fond de page blanc, y compris la navigation fixe. */
 .chapter-nav{background:#fff}
+
+/* Navigation entre la page commerciale et la présentation du projet. */
+.nav a[aria-current="page"]{text-decoration:underline;text-underline-offset:5px}.about-cta{margin-top:22px;font-weight:700}.about-cta a{text-underline-offset:4px}
+@media(max-width:700px){.nav{flex-wrap:wrap;gap:18px}.nav nav{width:100%;justify-content:space-between;gap:12px}.nav nav>a.about-link{display:inline-block}.nav .nav-cta{margin-left:auto}}
