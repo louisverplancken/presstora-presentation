@@ -364,3 +364,27 @@
  .commercial #packages>.section-heading>p { text-align:left; }
  .commercial #packages .package h3 { font-size:var(--type-2); }
 }
+
+/* Original Flaticon Regular Rounded check-circle, shared by all check states. */
+:root { --check-circle-shape:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cg%20transform%3D%22translate%280%20300%29%20scale%281%20-1%29%22%3E%3Cpath%20d%3D%22M228%20186Q231%20183%20231.0%20177.5Q231%20172%20228%20169L172%20114Q158%20100%20137.5%20100.0Q117%20100%20102%20114L79%20137Q75%20141%2075.0%20146.0Q75%20151%2078.5%20155.0Q82%20159%2087.5%20159.0Q93%20159%2096%20155L120%20132Q127%20125%20137.0%20125.0Q147%20125%20155%20132L210%20186Q214%20190%20219.0%20190.0Q224%20190%20228%20186ZM300%20150Q300%20109%20280.0%2074.5Q260%2040%20225.5%2020.0Q191%200%20150.0%200.0Q109%200%2074.5%2020.0Q40%2040%2020.0%2074.5Q0%20109%200.0%20150.0Q0%20191%2020.0%20225.5Q40%20260%2074.5%20280.0Q109%20300%20150.0%20300.0Q191%20300%20225.5%20280.0Q260%20260%20280.0%20225.5Q300%20191%20300%20150ZM275%20150Q275%20184%20258.0%20212.5Q241%20241%20212.5%20258.0Q184%20275%20150.0%20275.0Q116%20275%2087.5%20258.0Q59%20241%2042.0%20212.5Q25%20184%2025.0%20150.0Q25%20116%2042.0%2087.5Q59%2059%2087.5%2042.0Q116%2025%20150.0%2025.0Q184%2025%20212.5%2042.0Q241%2059%20258.0%2087.5Q275%20116%20275%20150Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+.fi-rr-check-circle {
+ display:inline-block; width:16px; height:16px; flex:0 0 16px;
+ background:currentColor;
+ -webkit-mask:var(--check-circle-shape) center/contain no-repeat;
+ mask:var(--check-circle-shape) center/contain no-repeat;
+}
+.commercial .features li { display:flex; align-items:flex-start; gap:8px; padding-left:0; }
+.commercial .features .fi-rr-check-circle { margin-top:4px; }
+.commercial .package .toggle { display:flex; align-items:center; justify-content:center; gap:8px; }
+.commercial .option input {
+ appearance:none; border:1px solid var(--muted); border-radius:3px;
+ background:white; cursor:pointer;
+}
+.commercial .option input:checked {
+ border:0; border-radius:0; background:var(--navy);
+ -webkit-mask:var(--check-circle-shape) center/contain no-repeat;
+ mask:var(--check-circle-shape) center/contain no-repeat;
+}
+.commercial .option input:disabled { opacity:.45; cursor:default; }
+.commercial .option input:focus-visible { outline:none; }
+.commercial .option:has(input:focus-visible) { outline:2px solid var(--navy); outline-offset:4px; border-radius:3px; }
