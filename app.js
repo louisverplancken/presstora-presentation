@@ -61,7 +61,7 @@ update();
 const zoomDialog=document.createElement('dialog');
 zoomDialog.id='solution-zoom';zoomDialog.className='solution-zoom';
 zoomDialog.setAttribute('aria-labelledby','solution-zoom-title');
-zoomDialog.innerHTML=`<div class="solution-zoom-heading"><div><p class="solution-zoom-eyebrow">${zoomIcon} ZOOM · CALCULS</p><p id="solution-zoom-kind"></p></div><button type="button" class="solution-zoom-close" autofocus>Fermer <span aria-hidden="true">×</span></button></div><div class="solution-zoom-main"><h2 id="solution-zoom-title"></h2><p id="solution-zoom-lead"></p><div id="solution-zoom-copy"></div><section class="solution-zoom-example"><h3>Par exemple</h3><p id="solution-zoom-example"></p></section></div><section class="solution-zoom-scope"><h3>Ce qu’il faut savoir</h3><p id="solution-zoom-scope"></p><small>Presstora est en préparation. Cette fiche décrit le périmètre prévu de l’offre.</small></section>`;
+zoomDialog.innerHTML=`<div class="solution-zoom-heading"><div><p class="solution-zoom-eyebrow">${zoomIcon} CALCULS · EN DÉTAIL</p><p id="solution-zoom-kind"></p></div><button type="button" class="solution-zoom-close" autofocus>Fermer <span aria-hidden="true">×</span></button></div><div class="solution-zoom-main"><h2 id="solution-zoom-title"></h2><p id="solution-zoom-lead"></p><div id="solution-zoom-copy"></div><section class="solution-zoom-example"><h3>Par exemple</h3><p id="solution-zoom-example"></p></section></div><section class="solution-zoom-scope"><h3>Ce qu’il faut savoir</h3><p id="solution-zoom-scope"></p><small>Presstora est en préparation. Cette fiche décrit le périmètre prévu de l’offre.</small></section>`;
 document.body.append(zoomDialog);
 let zoomOpener=null;
 byId('cards').addEventListener('click',event=>{
