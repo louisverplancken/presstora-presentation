@@ -224,6 +224,7 @@
  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0;
  align-items:end; margin:0;
  padding:var(--case-a) 0;
+ background:#eee9ff;
 }
 .commercial .use-cases-heading>div { min-width:0; padding-left:var(--case-a); padding-right:var(--case-b); }
 .commercial .use-cases-heading .landing-label { color:var(--muted); }
