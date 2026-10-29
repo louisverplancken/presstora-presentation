@@ -329,13 +329,22 @@
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
  --solution-left-radius:0px; --solution-right-radius:0px;
- border:1px solid var(--navy); border-radius:7px; overflow:hidden;
- background:var(--navy); min-width:0; row-gap:0;
+ border:0; border-radius:0; overflow:visible;
+ background:none; min-width:0; row-gap:0;
 }
 .commercial #packages .package.basic { --solution-ink:#657700; --solution-fill:var(--lime); --solution-background:#f0f8cf; }
 .commercial #packages .package.edition { --solution-ink:#6753B8; --solution-fill:var(--violet); --solution-background:#eee9ff; }
 .commercial #packages .package.gestion { --solution-ink:var(--navy); --solution-fill:var(--soft); --solution-background:var(--soft); }
-.commercial #packages .package-top { background:var(--solution-background); padding:var(--solution-b); border-radius:var(--solution-left-radius) var(--solution-right-radius) var(--solution-right-radius) var(--solution-left-radius); margin-bottom:1px; }
+.commercial #packages .package-top {
+ background:var(--solution-background); padding:var(--solution-b);
+ border:1px solid var(--navy); border-radius:7px; margin-bottom:0;
+}
+.commercial #packages .package-body {
+ display:grid; grid-template-rows:subgrid; grid-row:span 3; row-gap:0;
+ position:relative; z-index:1; margin-top:-1px; min-width:0; padding:0;
+ border:1px solid var(--navy); border-radius:7px; overflow:hidden;
+ background:var(--navy);
+}
 .commercial #packages .kicker { justify-content:flex-start; gap:10px; min-height:28px; margin-bottom:16px; }
 .commercial #packages .solution-marker {
  display:grid; place-items:center; width:28px; height:28px; flex:none;
