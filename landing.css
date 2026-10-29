@@ -405,6 +405,7 @@
 /* First Zoom trial: Calculs only. Reading and selecting remain separate actions. */
 .commercial .package.basic .features li { align-items:flex-start; gap:8px; }
 .commercial .feature-name { flex:1; min-width:0; }
+.commercial .feature-name,.commercial .option > span { line-height:1.3; }
 .commercial .feature-name small { display:block; color:var(--muted); font-size:var(--type-small); line-height:1.6; margin-top:3px; }
 .solution-zoom-trigger {
  display:inline-flex; align-items:center; justify-content:center; gap:4px;
