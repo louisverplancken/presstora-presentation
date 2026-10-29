@@ -251,6 +251,13 @@
  padding:4px 10px; border:1px solid var(--line); border-radius:4px; background:var(--soft);
 }
 .commercial .use-case-option { background:#eee9ff; border-color:var(--violet); }
+/* Shared rows keep the three stories and their offer footers aligned. */
+@media (min-width:1001px) {
+ .commercial .use-cases-grid article {
+  display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0;
+ }
+ .commercial .use-case-tags { margin-top:0; }
+}
 .commercial .use-cases-note { margin:16px var(--case-a) 0; color:var(--muted); font-size:var(--type-small); }
 @media(max-width:1000px) {
  .commercial .use-cases-grid { grid-template-columns:1fr; gap:1px; }
