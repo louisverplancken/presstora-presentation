@@ -61,10 +61,11 @@ byId('download').addEventListener('click',()=>{
 update();
 
 // A separate action from selection: opening a Zoom never changes the chosen offers.
+const detailCaptures={"prices": {"src": "assets/use-cases/calculations-demo.png", "caption": "Du choix des opérations au coût de fabrication et au prix de vente.", "alt": "Calculs : recette de fabrication, quantités et détail du prix pour une carte carrée.", "frame": [0, 0, 1512, 982]}, "library": {"src": "assets/details/library.png", "caption": "La bibliothèque des supports : papiers, formats et configurations réutilisables.", "alt": "Bibliothèque des supports avec trois papiers de démonstration et leurs configurations globales.", "frame": [238, 0, 1274, 460]}, "imposition": {"src": "assets/use-cases/calculations-demo.png", "caption": "Le calcul de disposition : 24 exemplaires répartis sur une feuille.", "alt": "Panneau Imposition : disposition de 24 cartes en six colonnes et quatre rangées sur une feuille de 450 × 320 mm.", "frame": [1030, 280, 482, 558]}, "pdf": {"src": "assets/details/pdf.png", "caption": "Le diagnostic d’un PDF : format, fonds perdus, pages et points à vérifier.", "alt": "Diagnostic PDF : liste des contrôles à gauche et aperçu du document avec ses repères à droite.", "frame": [196, 75, 1316, 907]}, "sheet": {"src": "assets/details/sheet.png", "caption": "La fiche de fabrication : caractéristiques, quantités et consignes pour l’atelier.", "alt": "Aperçu de la feuille de job d’un programme culturel, avec téléchargement PDF et impression.", "frame": [216, 127, 1080, 728]}, "quote": {"src": "assets/details/quote.png", "caption": "La préparation du devis et son aperçu, à partir des choix de fabrication.", "alt": "Espace Devis : quantité, prestations et prévisualisation de la proposition pour une carte carrée.", "frame": [238, 0, 1274, 982]}};
 const zoomDialog=document.createElement('dialog');
 zoomDialog.id='solution-zoom';zoomDialog.className='solution-zoom';
 zoomDialog.setAttribute('aria-labelledby','solution-zoom-title');
-zoomDialog.innerHTML=`<div class="solution-zoom-heading"><div><p class="solution-zoom-eyebrow">${zoomIcon} CALCULS · EN DÉTAIL</p><p id="solution-zoom-kind"></p></div><button type="button" class="solution-zoom-close" autofocus>Fermer <span aria-hidden="true">×</span></button></div><div class="solution-zoom-main"><h2 id="solution-zoom-title"></h2><p id="solution-zoom-lead"></p><section class="solution-zoom-how"><h3>Comment ça se passe ?</h3><div id="solution-zoom-copy"></div></section><section class="solution-zoom-result"><h3>Ce que vous obtenez</h3><p id="solution-zoom-result"></p></section><section class="solution-zoom-example"><h3>Par exemple</h3><p id="solution-zoom-example"></p></section></div><section class="solution-zoom-scope"><h3>Ce qui est compris — et ce qui ne l’est pas</h3><p id="solution-zoom-scope"></p><small>Presstora est en préparation. Cette fiche décrit le périmètre prévu de l’offre.</small></section>`;
+zoomDialog.innerHTML=`<div class="solution-zoom-heading"><div><p class="solution-zoom-eyebrow">${zoomIcon} CALCULS · EN DÉTAIL</p><p id="solution-zoom-kind"></p></div><button type="button" class="solution-zoom-close" autofocus>Fermer <span aria-hidden="true">×</span></button></div><div class="solution-zoom-main"><h2 id="solution-zoom-title"></h2><p id="solution-zoom-lead"></p><figure class="solution-detail-capture"><a id="solution-capture-link" target="_blank" rel="noopener"><span class="solution-capture-frame"><img id="solution-capture-image" width="1512" height="982" decoding="async"></span><span class="solution-capture-enlarge">Agrandir la capture <span aria-hidden="true">↗</span></span></a><figcaption><span id="solution-capture-caption"></span><small>Interface Presstora · données de démonstration</small></figcaption></figure><section class="solution-zoom-how"><h3>Comment ça se passe ?</h3><div id="solution-zoom-copy"></div></section><section class="solution-zoom-result"><h3>Ce que vous obtenez</h3><p id="solution-zoom-result"></p></section><section class="solution-zoom-example"><h3>Par exemple</h3><p id="solution-zoom-example"></p></section></div><section class="solution-zoom-scope"><h3>Ce qui est compris — et ce qui ne l’est pas</h3><p id="solution-zoom-scope"></p><small>Presstora est en préparation. Cette fiche décrit le périmètre prévu de l’offre.</small></section>`;
 document.body.append(zoomDialog);
 let zoomOpener=null;
 byId('cards').addEventListener('click',event=>{
@@ -73,6 +74,15 @@ byId('cards').addEventListener('click',event=>{
  zoomOpener=trigger;
  for(const key of ['title','kind','lead','result','example','scope'])byId('solution-zoom-'+key).textContent=detail[key];
  byId('solution-zoom-copy').replaceChildren(...detail.steps.map(text=>{const p=document.createElement('p');p.textContent=text;return p;}));
+ const capture=detailCaptures[trigger.dataset.zoom];
+ const image=byId('solution-capture-image'),link=byId('solution-capture-link');
+ const [x,y,width,height]=capture.frame;
+ image.src=capture.src;image.alt=capture.alt;
+ image.style.cssText=`width:${1512/width*100}%;left:${-x/width*100}%;top:${-y/height*100}%;`;
+ image.parentElement.style.maxWidth=trigger.dataset.zoom==='imposition'?'360px':'100%';
+ image.parentElement.style.aspectRatio=`${width} / ${height}`;
+ link.href=capture.src;link.setAttribute('aria-label',`Agrandir la capture : ${detail.title} (nouvel onglet)`);
+ byId('solution-capture-caption').textContent=capture.caption;
  zoomDialog.showModal();zoomDialog.scrollTop=0;document.body.classList.add('solution-zoom-open');
 });
 zoomDialog.querySelector('.solution-zoom-close').addEventListener('click',()=>zoomDialog.close());

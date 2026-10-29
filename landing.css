@@ -453,3 +453,15 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-zoom-result p { color:var(--muted); font-size:var(--type-base); line-height:1.6; margin:0; }
 
 .commercial .solution-feature-icon { width:18px; height:18px; flex:0 0 18px; margin-top:3px; color:var(--navy); }
+
+/* Real application captures, framed without modifying the originals. */
+.solution-detail-capture { margin:0 0 28px; }
+.solution-detail-capture a { display:block; color:var(--navy); text-decoration:none; }
+.solution-capture-frame { display:block; position:relative; overflow:hidden; border:1px solid var(--line); border-radius:7px; background:var(--soft); max-width:100%; }
+.solution-capture-frame img { position:absolute; display:block; height:auto; max-width:none; }
+.solution-detail-capture:has(img[src*="calculations"]) .solution-capture-frame { margin-inline:auto; }
+.solution-detail-capture a:focus-visible { outline:2px solid var(--navy); outline-offset:4px; border-radius:7px; }
+.solution-capture-enlarge { display:flex; align-items:center; justify-content:flex-end; gap:6px; font-size:var(--type-small); margin-top:8px; text-decoration:underline; text-underline-offset:3px; }
+.solution-detail-capture a:hover .solution-capture-enlarge { color:#657700; }
+.solution-detail-capture figcaption { margin-top:8px; font-size:var(--type-small); line-height:1.5; color:var(--muted); }
+.solution-detail-capture figcaption small { display:block; font-size:inherit; margin-top:4px; }
