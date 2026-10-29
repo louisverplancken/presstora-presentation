@@ -16,9 +16,8 @@ function featureIcon(index){const name=basicFeatureIconNames[index];return `<svg
 const basicFeatureIds=["prices", "library", "models", "margins", "imposition", "outsourcing"];
 function zoomButton(id){return `<button type="button" class="solution-zoom-trigger" data-zoom="${id}" aria-haspopup="dialog" aria-label="En savoir plus sur ${calculsZoom[id].title}" title="En savoir plus">${zoomIcon}</button>`;}
 function inlineDetailTitle(text,id,isOption=false){
- const split=text.lastIndexOf(' '),prefix=text.slice(0,split+1),tail=text.slice(split+1);
- const label=part=>isOption?`<label for="option-${id}">${part}</label>`:part;
- return `${label(prefix)}<span class="detail-title-tail">${label(tail)}${zoomButton(id)}</span>`;
+ const title=isOption?`<label for="option-${id}">${text}</label>`:`<span>${text}</span>`;
+ return `<span class="detail-title-row">${title}${zoomButton(id)}</span>`;
 }
 const selected=new Set(['basic']), options=new Set();
 const byId=id=>document.getElementById(id);
