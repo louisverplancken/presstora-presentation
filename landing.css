@@ -480,3 +480,17 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-principle-flow > div { padding:14px 10px; background:white; border:1px solid var(--line); border-radius:7px; font-size:var(--type-small); line-height:1.4; }
 .solution-principle-flow b { display:block; color:#47616f; font-size:20px; margin-bottom:12px; }
 @media(max-width:450px){ .solution-principle-flow { grid-template-columns:1fr; } .solution-principle-flow > div { display:flex; align-items:center; gap:12px; } .solution-principle-flow b { margin:0; } }
+
+/* Connector compatibility is scoped to the connector detail sheet. */
+.connector-compatibilities[hidden] { display:none; }
+.connector-compatibilities { margin:0 0 28px; }
+.connector-platforms { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.connector-platform { min-width:0; border:1px solid var(--line); border-radius:7px; padding:12px; }
+.connector-brand { display:flex; align-items:center; justify-content:center; height:88px; margin-bottom:12px; }
+.connector-brand img { display:block; max-width:100%; height:auto; object-fit:contain; }
+.connector-status { display:inline-block; font-size:var(--type-small); line-height:1.4; padding:3px 6px; border-radius:4px; }
+.connector-status.tested { background:#f0f8cd; color:#4b6000; }
+.connector-status.planned { background:#eeebfb; color:#6753b8; }
+.connector-platform p { margin:10px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
+.connector-compatibility-note { margin:10px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
+@media(max-width:600px){ .connector-platforms { grid-template-columns:1fr; } .connector-brand { justify-content:flex-start; height:81px; margin-bottom:4px; } }

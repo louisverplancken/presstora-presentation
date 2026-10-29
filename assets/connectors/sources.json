@@ -1,0 +1,15 @@
+{
+  "woocommerce": {
+    "page": "https://woocommerce.com/brand-and-logo-guidelines/",
+    "asset": "https://woocommerce.com/wp-content/uploads/2025/01/woo-logos.zip",
+    "file": "Woo Logos/Woo_logo_color.svg"
+  },
+  "shopify": {
+    "page": "https://www.shopify.com/brand-assets",
+    "asset": "https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-456baa801ee66a0a435671082365958316831c9960c480451dd0330bcdae304f.svg"
+  },
+  "odoo": {
+    "page": "https://www.odoo.com/page/brand-assets",
+    "asset": "https://www.odoo.com/openerp_website/static/src/img/assets/svg/odoo_logo.svg"
+  }
+}
