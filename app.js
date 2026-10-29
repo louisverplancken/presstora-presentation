@@ -15,9 +15,14 @@ const basicFeatureIconNames=["calculator-simple", "books", "copy", "euro", "layo
 function featureIcon(index){const name=basicFeatureIconNames[index];return `<svg class="solution-feature-icon" width="18" height="18" viewBox="0 0 300 300" data-uicon="${name}" aria-hidden="true" focusable="false"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${basicFeatureIcons[name]}"/></g></svg>`;}
 const basicFeatureIds=["prices", "library", "models", "margins", "imposition", "outsourcing"];
 function zoomButton(id){return `<button type="button" class="solution-zoom-trigger" data-zoom="${id}" aria-haspopup="dialog" aria-label="En savoir plus sur ${calculsZoom[id].title}" title="En savoir plus">${zoomIcon}</button>`;}
+function inlineDetailTitle(text,id,isOption=false){
+ const split=text.lastIndexOf(' '),prefix=text.slice(0,split+1),tail=text.slice(split+1);
+ const label=part=>isOption?`<label for="option-${id}">${part}</label>`:part;
+ return `${label(prefix)}<span class="detail-title-tail">${label(tail)}${zoomButton(id)}</span>`;
+}
 const selected=new Set(['basic']), options=new Set();
 const byId=id=>document.getElementById(id);
-byId('cards').innerHTML=packages.map(p=>`<article class="package ${p.id}" aria-labelledby="title-${p.id}"><div class="package-top"><div class="kicker"><span class="solution-marker"><svg width="16" height="16" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${solutionIcons[p.id]}"/></g></svg></span><span class="tag">${p.tag}</span></div><h3 id="title-${p.id}">${p.name}</h3><p class="intro">${p.intro}</p><button class="toggle" data-package="${p.id}" aria-pressed="false">Ajouter à ma sélection</button></div><div class="package-body"><div class="package-inclusions"><div class="mini-title">DANS CETTE OFFRE</div><ul class="features">${p.features.map((f,i)=>`<li>${p.id==='basic'?featureIcon(i):checkIcon}<span class="feature-name">${f.label}<small>${f.description}</small></span>${p.id==='basic'?zoomButton(basicFeatureIds[i]):''}</li>`).join('')}</ul></div><div class="addons"><div class="mini-title">POUR ALLER PLUS LOIN</div>${p.options.map(([id,label,desc])=>{const option=`<label class="option"><input type="checkbox" id="option-${id}" data-option="${id}" data-owner="${p.id}"><span>${label}<small data-description="${id}">${desc}</small></span></label>`;return p.id==='basic'?`<div class="option-with-zoom">${option}${zoomButton(id)}</div>`:option;}).join('')}</div><p class="package-note">${p.note}</p></div></article>`).join('');
+byId('cards').innerHTML=packages.map(p=>`<article class="package ${p.id}" aria-labelledby="title-${p.id}"><div class="package-top"><div class="kicker"><span class="solution-marker"><svg width="16" height="16" viewBox="0 0 300 300" aria-hidden="true" focusable="false"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${solutionIcons[p.id]}"/></g></svg></span><span class="tag">${p.tag}</span></div><h3 id="title-${p.id}">${p.name}</h3><p class="intro">${p.intro}</p><button class="toggle" data-package="${p.id}" aria-pressed="false">Ajouter à ma sélection</button></div><div class="package-body"><div class="package-inclusions"><div class="mini-title">DANS CETTE OFFRE</div><ul class="features">${p.features.map((f,i)=>`<li>${p.id==='basic'?featureIcon(i):checkIcon}<span class="feature-name">${p.id==='basic'?inlineDetailTitle(f.label,basicFeatureIds[i]):f.label}<small>${f.description}</small></span></li>`).join('')}</ul></div><div class="addons"><div class="mini-title">POUR ALLER PLUS LOIN</div>${p.options.map(([id,label,desc])=>{const option=`<label class="option"><input type="checkbox" id="option-${id}" data-option="${id}" data-owner="${p.id}"><span>${label}<small data-description="${id}">${desc}</small></span></label>`;return p.id==='basic'?`<div class="option option-with-zoom"><input type="checkbox" id="option-${id}" data-option="${id}" data-owner="${p.id}" aria-describedby="description-${id}"><div class="option-copy">${inlineDetailTitle(label,id,true)}<small id="description-${id}" data-description="${id}">${desc}</small></div></div>`:option;}).join('')}</div><p class="package-note">${p.note}</p></div></article>`).join('');
 function getSummary(){
  const names=packages.filter(p=>selected.has(p.id)).map(p=>p.name);
  const extra=packages.flatMap(p=>p.options.filter(([id])=>options.has(id)).map(([,name])=>name));
@@ -37,7 +42,7 @@ function update(){
    input.checked=included||options.has(id);
    const description=document.querySelector(`[data-description="${id}"]`);
    description.textContent=included?'Inclus avec Gestion':desc;
-   input.closest('label').title=!on?'Sélectionnez cette offre pour ajouter cette option':'';
+   for(const label of input.labels)label.title=!on?'Sélectionnez cette offre pour ajouter cette option':'';
    description.classList.toggle('included',included);
   }
  }
