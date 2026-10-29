@@ -328,12 +328,12 @@
 .commercial #packages .packages { gap:0 1px; }
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
- border:0; border-radius:7px; background:white; min-width:0;
+ border:0; border-radius:7px; background:var(--navy); min-width:0;
 }
 .commercial #packages .package.basic { --solution-ink:#657700; --solution-fill:var(--lime); --solution-background:#f0f8cf; }
 .commercial #packages .package.edition { --solution-ink:#6753B8; --solution-fill:var(--violet); --solution-background:#eee9ff; }
 .commercial #packages .package.gestion { --solution-ink:var(--navy); --solution-fill:var(--soft); --solution-background:var(--soft); }
-.commercial #packages .package-top { background:var(--solution-background); padding:var(--solution-b); border-radius:7px 7px 0 0; }
+.commercial #packages .package-top { background:var(--solution-background); padding:var(--solution-b); border-radius:7px; margin-bottom:1px; }
 .commercial #packages .kicker { justify-content:flex-start; gap:10px; min-height:28px; margin-bottom:16px; }
 .commercial #packages .solution-marker {
  display:grid; place-items:center; width:28px; height:28px; flex:none;
@@ -347,9 +347,10 @@
 }
 .commercial #packages .package h3 { font-size:var(--type-3); margin-bottom:16px; }
 .commercial #packages .intro { color:var(--muted); min-height:0; }
-.commercial #packages .package-inclusions { padding:24px var(--solution-b); border-top:1px solid var(--line); }
-.commercial #packages .addons { padding:0 var(--solution-b) 24px; }
-.commercial #packages .package-note { padding:0 var(--solution-b) var(--solution-b); }
+.commercial #packages .package-inclusions { padding:24px var(--solution-b); border:0; background:white; border-radius:7px; margin-bottom:1px; }
+.commercial #packages .addons { padding:24px var(--solution-b); background:white; border-radius:7px 7px 0 0; }
+.commercial #packages .addons .mini-title { border-top:0; padding-top:0; }
+.commercial #packages .package-note { padding:0 var(--solution-b) var(--solution-b); background:white; border-radius:0 0 7px 7px; }
 .commercial #packages>.caption {
  margin:16px var(--solution-a) 0; padding:0; border:0; background:none;
  font-size:var(--type-small); color:var(--muted);
