@@ -132,8 +132,8 @@
  --section-column:calc(100vw / 12);
  --section-a:calc(var(--section-column) / 2);
  --section-b:calc(var(--section-column) / 4);
- --section-radius:16px;
- --section-junction-radius:calc(var(--section-radius) - 1px);
+ --section-radius:7px;
+ --section-junction-radius:var(--section-radius);
 }
 .commercial #origine .landing-section-head {
  display:grid;
@@ -165,7 +165,7 @@
  border-radius:calc(var(--section-radius) - 1px);
  background:white;
 }
-/* Même courbure pour tous les coins des colonnes, bordure extérieure déduite. */
+/* Petit rayon de 7 px aux jonctions et au contour ; fond extérieur ajusté à la bordure. */
 .commercial #origine .landing-benefits article:first-child {
  border-radius:calc(var(--section-radius) - 1px) var(--section-junction-radius) var(--section-junction-radius) calc(var(--section-radius) - 1px);
 }
