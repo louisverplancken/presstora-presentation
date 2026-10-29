@@ -142,7 +142,7 @@
  width:100%;
  max-width:none;
  margin:0;
- padding:var(--section-column) 0;
+ padding:var(--section-column) 0 var(--section-a);
  gap:0;
 }
 .commercial #origine .landing-section-head>div { min-width:0; padding-inline:var(--section-a); }
@@ -217,7 +217,7 @@
  --case-column:calc(100vw / 12);
  --case-a:calc(var(--case-column) / 2);
  --case-b:calc(var(--case-column) / 4);
- margin-top:var(--case-a);
+ margin-top:var(--case-column);
  border-top:1px solid var(--navy);
 }
 .commercial .use-cases-heading {
