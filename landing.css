@@ -325,7 +325,7 @@
  margin-inline:var(--solution-a); border:0;
  border-radius:0; overflow:visible; background:none;
 }
-.commercial #packages .packages { gap:24px clamp(16px, var(--solution-b), 32px); }
+.commercial #packages .packages { gap:24px clamp(8px, calc(var(--solution-column) / 8), 16px); }
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
  --solution-left-radius:0px; --solution-right-radius:0px;
