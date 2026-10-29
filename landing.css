@@ -329,7 +329,7 @@
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
  --solution-left-radius:0px; --solution-right-radius:0px;
- border:2px solid var(--navy); border-radius:7px; overflow:hidden;
+ border:1px solid var(--navy); border-radius:7px; overflow:hidden;
  background:var(--navy); min-width:0; row-gap:0;
 }
 .commercial #packages .package.basic { --solution-ink:#657700; --solution-fill:var(--lime); --solution-background:#f0f8cf; }
