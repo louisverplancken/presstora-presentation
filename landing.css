@@ -133,7 +133,7 @@
  --section-a:calc(var(--section-column) / 2);
  --section-b:calc(var(--section-column) / 4);
  --section-radius:16px;
- --section-junction-radius:7px;
+ --section-junction-radius:calc(var(--section-radius) - 1px);
 }
 .commercial #origine .landing-section-head {
  display:grid;
@@ -165,7 +165,7 @@
  border-radius:calc(var(--section-radius) - 1px);
  background:white;
 }
-/* Petits arrondis aux jonctions, comme le token junction-radius de l'app. */
+/* Même courbure pour tous les coins des colonnes, bordure extérieure déduite. */
 .commercial #origine .landing-benefits article:first-child {
  border-radius:calc(var(--section-radius) - 1px) var(--section-junction-radius) var(--section-junction-radius) calc(var(--section-radius) - 1px);
 }
