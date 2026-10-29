@@ -406,7 +406,8 @@
 .commercial .package.basic .features li { align-items:flex-start; gap:8px; }
 .commercial .feature-name { flex:1; min-width:0; }
 .commercial .feature-name,.commercial .option > span { line-height:1.3; }
-.commercial .feature-name small { display:block; color:var(--muted); font-size:var(--type-small); line-height:1.6; margin-top:3px; }
+.commercial .feature-name small,.commercial .option small { line-height:1.4; }
+.commercial .feature-name small { display:block; color:var(--muted); font-size:var(--type-small); margin-top:3px; }
 .detail-title-tail { white-space:nowrap; }
 .solution-zoom-trigger {
  display:inline-flex; align-items:center; justify-content:center;
