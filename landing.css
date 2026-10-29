@@ -265,3 +265,38 @@
  .commercial .use-cases-grid h3 { font-size:var(--type-1); }
  .commercial .use-cases-note { margin-inline:24px; }
 }
+
+/* Visuels : captures réelles pour l'éditeur et Calculs, maquette illustrative pour le B2B. */
+.commercial .case-visual { position:relative; height:236px; flex:none; margin:0 0 28px; border-radius:7px; overflow:hidden; }
+.commercial .case-visual-editor { background:#eee9ff; }
+.commercial .case-visual-calculations { background:#f0f8cf; }
+.commercial .case-screen { display:block; position:absolute; inset:20px 20px 42px; border:1px solid var(--navy); border-radius:5px; overflow:hidden; background:white; box-shadow:5px 5px 0 rgba(0,34,51,.12); }
+.commercial .case-screen img { display:block; width:100%; height:100%; object-fit:cover; object-position:center top; }
+.commercial .case-visual-calculations .case-screen img { object-fit:contain; }
+.commercial .case-screen:focus-visible { outline:3px solid var(--navy); outline-offset:4px; }
+.commercial .case-visual figcaption { position:absolute; bottom:12px; left:16px; right:16px; font-size:var(--type-small); line-height:1.4; color:var(--navy); text-align:center; }
+.commercial .case-visual-b2b { background:#e5edf0; }
+.commercial .private-shop { position:absolute; inset:16px 12px 42px; background:white; border:1px solid var(--navy); border-radius:5px; overflow:hidden; box-shadow:4px 4px 0 rgba(0,34,51,.10); }
+.commercial .private-shop-header { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:7px 10px; border-bottom:1px solid #d5dedf; }
+.commercial .private-shop-brand { display:flex; align-items:center; gap:5px; font-size:9px; letter-spacing:.06em; font-weight:700; }
+.commercial .private-shop-mark { display:grid; place-items:center; width:19px; height:19px; border-radius:50%; background:#a6c7bf; font-size:13px; letter-spacing:0; }
+.commercial .private-shop-access { font-size:8px; color:#47615b; background:#eef4f2; border-radius:3px; padding:3px 5px; }
+.commercial .private-shop-welcome { padding:7px 10px 5px; font-size:11px; font-weight:700; }
+.commercial .private-shop-products { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; padding:0 10px 8px; }
+.commercial .private-shop-product { min-width:0; display:flex; flex-direction:column; gap:5px; }
+.commercial .private-shop-product>strong { font-size:9px; line-height:1.2; }
+.commercial .stationery-scene { height:55px; background:#f0f3ef; display:flex; align-items:center; justify-content:center; border-radius:3px; }
+.commercial .stationery-card,.commercial .stationery-letter,.commercial .stationery-flyer { box-shadow:2px 2px 0 #ccd7d2; color:#254b43; background:white; }
+.commercial .stationery-card { width:64px; height:36px; padding:4px 6px; transform:rotate(-7deg); border-left:7px solid #a6c7bf; }
+.commercial .stationery-card b { font-size:12px; line-height:1; display:block; }
+.commercial .stationery-card span { display:block; font-size:4px; line-height:1.4; margin-top:3px; }
+.commercial .stationery-letter { width:30px; height:44px; padding:4px; transform:rotate(5deg); }
+.commercial .stationery-letter b { display:block; font-size:8px; margin-bottom:7px; }
+.commercial .stationery-letter i { display:block; height:1px; background:#a6c7bf; margin-top:3px; }
+.commercial .stationery-flyer { width:34px; height:45px; padding:4px; transform:rotate(-5deg); background:#a6c7bf; }
+.commercial .stationery-flyer b { font-size:8px; line-height:1; display:block; }
+.commercial .stationery-flyer span { font-size:5.5px; white-space:nowrap; display:block; line-height:1.2; margin-top:5px; }
+.commercial .private-shop-action { display:block; padding:4px 2px; background:#254b43; color:white; border:1px solid #254b43; border-radius:3px; font-size:8px; line-height:1.2; text-align:center; }
+.commercial .private-shop-action.repeat { color:#254b43; background:white; }
+@media(min-width:701px) and (max-width:1000px) { .commercial .case-visual { max-width:560px; } }
+@media(max-width:400px) { .commercial .case-screen { left:12px; right:12px; } .commercial .private-shop-products { gap:5px; padding-inline:7px; } .commercial .private-shop-header { padding-inline:7px; } .commercial .private-shop-product>strong { font-size:8px; } .commercial .private-shop-action { font-size:7px; } }
