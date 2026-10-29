@@ -227,7 +227,7 @@
  background:#eee9ff;
 }
 .commercial .use-cases-heading>div { min-width:0; padding-left:var(--case-a); padding-right:var(--case-b); }
-.commercial .use-cases-heading .landing-label { color:var(--muted); }
+.commercial .use-cases-heading .landing-label { color:#6753B8; }
 .commercial .use-cases-heading>p { min-width:0; max-width:none; padding-left:var(--case-b); padding-right:var(--case-a); color:var(--muted); }
 .commercial .use-cases-heading strong { color:var(--navy); }
 .commercial .use-cases-grid {
