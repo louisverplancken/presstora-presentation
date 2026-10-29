@@ -494,3 +494,12 @@ body.solution-zoom-open { overflow:hidden; }
 .connector-platform p { margin:10px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
 .connector-compatibility-note { margin:10px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
 @media(max-width:600px){ .connector-platforms { grid-template-columns:1fr; } .connector-brand { justify-content:flex-start; height:81px; margin-bottom:4px; } }
+
+.personalization-modes[hidden] { display:none; }
+.personalization-modes { margin-bottom:28px; }
+.personalization-modes ul { list-style:none; margin:12px 0 0; padding:0; border:1px solid var(--line); border-radius:7px; }
+.personalization-modes li { padding:14px; }
+.personalization-modes li+li { border-top:1px solid var(--line); }
+.personalization-modes li>div { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+.personalization-modes h4 { margin:0; font-size:var(--type-base); line-height:1.3; }
+.personalization-modes p { margin:8px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
