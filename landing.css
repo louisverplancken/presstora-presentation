@@ -228,7 +228,7 @@
 }
 .commercial .use-cases-heading>div { min-width:0; padding-left:var(--case-a); padding-right:var(--case-b); }
 .commercial .use-cases-heading .landing-label { color:#6753B8; }
-.commercial .use-cases-heading>p { min-width:0; max-width:none; padding-left:var(--case-b); padding-right:var(--case-a); color:var(--muted); }
+.commercial .use-cases-heading>.use-cases-intro { min-width:0; max-width:none; padding-left:var(--case-b); padding-right:var(--case-a); color:var(--muted); }
 .commercial .use-cases-heading strong { color:var(--navy); }
 .commercial .use-cases-grid {
  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
@@ -253,7 +253,8 @@
  padding:4px 10px; border:1px solid var(--line); border-radius:4px; background:var(--soft);
 }
 .commercial .use-case-option { background:#eee9ff; border-color:var(--violet); }
-.commercial .use-cases-note { margin:16px var(--case-a) 0; color:var(--muted); font-size:var(--type-small); }
+.commercial .use-cases-note { display:flex; align-items:flex-start; gap:8px; margin:16px 0 0; color:var(--muted); font-size:var(--type-small); line-height:1.5; }
+.commercial .use-cases-note svg { flex:0 0 16px; margin-top:2px; color:var(--navy); }
 @media(max-width:1000px) {
  .commercial .use-cases-grid { grid-template-columns:1fr; gap:1px; }
  .commercial .use-cases-grid article { padding:var(--case-b) var(--case-a); }
@@ -265,7 +266,6 @@
  .commercial .landing-use-cases { --case-a:24px; --case-b:24px; }
  .commercial .use-cases-heading { grid-template-columns:1fr; gap:24px; }
  .commercial .use-cases-grid h3 { font-size:var(--type-1); }
- .commercial .use-cases-note { margin-inline:24px; }
 }
 
 /* Visuels : captures réelles pour l'éditeur et Calculs, maquette illustrative pour le B2B. */
