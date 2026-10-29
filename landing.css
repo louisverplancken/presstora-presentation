@@ -237,7 +237,7 @@
 }
 .commercial .use-cases-grid article {
  min-width:0; display:flex; flex-direction:column;
- padding:var(--case-a) var(--case-b); background:white; border-radius:7px;
+ padding:var(--case-b); background:white; border-radius:7px;
 }
 .commercial .use-cases-grid article:first-child { padding-left:var(--case-a); border-radius:0 7px 7px 0; }
 .commercial .use-cases-grid article:last-child { padding-right:var(--case-a); border-radius:7px 0 0 7px; }
@@ -254,7 +254,7 @@
 .commercial .use-cases-note { margin:16px var(--case-a) 0; color:var(--muted); font-size:var(--type-small); }
 @media(max-width:1000px) {
  .commercial .use-cases-grid { grid-template-columns:1fr; gap:1px; }
- .commercial .use-cases-grid article { padding:var(--case-a); }
+ .commercial .use-cases-grid article { padding:var(--case-b) var(--case-a); }
  .commercial .use-cases-grid article:first-child { border-radius:0 0 7px 7px; }
  .commercial .use-cases-grid article:last-child { border-radius:7px 7px 0 0; }
  .commercial .use-cases-grid h3,.commercial .use-case-copy { max-width:65ch; }
