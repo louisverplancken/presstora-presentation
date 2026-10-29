@@ -55,7 +55,7 @@
 .commercial .mini-title { margin-bottom:16px; }
 .commercial .option { margin-bottom:16px; }
 .commercial .option:last-child { margin-bottom:0; }
-.commercial .package .toggle { min-height:56px; }
+.commercial .package .toggle { min-height:40px; padding:7px 10px; }
 .commercial .features { min-height:0; }
 .commercial .package-note { margin:0; padding:0 var(--module-space) var(--module-space); }
 .commercial .caption { margin:0; padding:16px var(--landing-inset); border-top:1px solid var(--navy); background:var(--soft); }
@@ -114,7 +114,7 @@
  .commercial .packages { grid-template-columns:1fr; }
  .commercial .package+.package { border-left:0; border-top:1px solid var(--navy); }
  .commercial .package-top { padding:var(--module-space); }
- .commercial .package .toggle { min-height:48px; }
+ .commercial .package .toggle { min-height:40px; }
  .commercial .features { min-height:0; }
  .commercial .selection { width:auto; margin:var(--section-space) var(--landing-inset) 0; padding-bottom:48px; }
  .commercial .selection h2 { font-size:var(--type-2); }
