@@ -237,17 +237,15 @@
 }
 .commercial .use-cases-grid article {
  min-width:0; display:grid; grid-template-rows:subgrid; grid-row:span 4;
- padding:var(--case-b); background:white; border-radius:7px;
+ padding:var(--case-a) var(--case-b); background:white; border-radius:7px;
 }
 .commercial .use-cases-grid article:first-child { padding-left:var(--case-a); border-radius:0 7px 7px 0; }
 .commercial .use-cases-grid article:last-child { padding-right:var(--case-a); border-radius:7px 0 0 7px; }
 .commercial .use-case-profile { color:var(--muted); font-size:var(--type-small); font-weight:700; margin-bottom:16px; }
 .commercial .use-cases-grid h3 { font-size:var(--type-2); line-height:1.3; margin-bottom:24px; }
 .commercial .use-case-copy { color:var(--muted); margin-bottom:32px; }
-.commercial .use-case-tags { display:flex; flex-direction:column; gap:12px; border-top:1px solid var(--line); padding-top:20px; }
-.commercial .use-case-tag-row { display:flex; flex-direction:column; gap:8px; }
-.commercial .use-case-tag-label { font-size:var(--type-small); font-weight:700; }
-.commercial .use-case-tag-row ul { display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0; }
+.commercial .use-case-tags { align-self:end; border-top:1px solid var(--line); padding-top:20px; }
+.commercial .use-case-tags ul { display:flex; flex-wrap:wrap; align-items:center; gap:6px; list-style:none; margin:0; padding:0; }
 .commercial .use-case-tag {
  font-size:var(--type-small); line-height:1.5; color:var(--navy);
  padding:4px 10px; border:1px solid var(--line); border-radius:4px; background:var(--soft);
@@ -256,7 +254,7 @@
 .commercial .use-cases-note { margin:16px var(--case-a) 0; color:var(--muted); font-size:var(--type-small); }
 @media(max-width:1000px) {
  .commercial .use-cases-grid { grid-template-columns:1fr; gap:1px; }
- .commercial .use-cases-grid article { grid-template-rows:auto; grid-row:auto; padding:24px var(--case-a); }
+ .commercial .use-cases-grid article { grid-template-rows:auto; grid-row:auto; padding:var(--case-a); }
  .commercial .use-cases-grid article:first-child { border-radius:0 0 7px 7px; }
  .commercial .use-cases-grid article:last-child { border-radius:7px 7px 0 0; }
  .commercial .use-cases-grid h3,.commercial .use-case-copy { max-width:65ch; }
