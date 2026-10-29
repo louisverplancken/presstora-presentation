@@ -322,7 +322,7 @@
 .commercial #packages>.section-heading>p { text-align:right; }
 .commercial #packages .section-heading .landing-label { color:var(--muted); }
 .commercial #packages>.landing-connected {
- margin-inline:var(--solution-a); border:1px solid var(--navy);
+ margin-inline:var(--solution-a); border:2px solid var(--navy);
  border-radius:7px; overflow:hidden; background:var(--navy);
 }
 .commercial #packages .packages { gap:0 2px; }
