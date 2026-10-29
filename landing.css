@@ -138,14 +138,14 @@
 .commercial #origine .landing-section-head {
  display:grid;
  grid-template-columns:2fr 1fr;
- align-items:end;
+ align-items:stretch;
  width:100%;
  max-width:none;
  margin:0;
  padding:var(--section-column) 0 var(--section-a);
  gap:0;
 }
-.commercial #origine .landing-section-head>div { min-width:0; padding-inline:var(--section-a); }
+.commercial #origine .landing-section-head>div { display:flex; flex-direction:column; justify-content:center; min-width:0; padding-inline:var(--section-a); }
 .commercial #origine .landing-section-head h2 { max-width:none; }
 .commercial #origine .landing-section-note { display:flex; flex-direction:column; align-items:flex-end; gap:16px; text-align:right; }
 .commercial #origine .section-note-icon { flex:none; display:block; width:32px; height:32px; }
@@ -222,11 +222,11 @@
 }
 .commercial .use-cases-heading {
  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0;
- align-items:end; margin:0;
+ align-items:stretch; margin:0;
  padding:var(--case-a) 0;
  background:#eee9ff;
 }
-.commercial .use-cases-heading>div { min-width:0; padding-left:var(--case-a); padding-right:var(--case-b); }
+.commercial .use-cases-heading>div { display:flex; flex-direction:column; justify-content:center; min-width:0; padding-left:var(--case-a); padding-right:var(--case-b); }
 .commercial .use-cases-heading .landing-label { color:#6753B8; }
 .commercial .use-cases-heading>.use-cases-intro { min-width:0; max-width:none; padding-left:var(--case-b); padding-right:var(--case-a); color:var(--muted); }
 .commercial .use-cases-heading strong { color:var(--navy); }
@@ -253,8 +253,8 @@
  padding:4px 10px; border:1px solid var(--line); border-radius:4px; background:var(--soft);
 }
 .commercial .use-case-option { background:#eee9ff; border-color:var(--violet); }
-.commercial .use-cases-note { display:flex; align-items:flex-start; gap:8px; margin:16px 0 0; color:var(--muted); font-size:var(--type-small); line-height:1.5; }
-.commercial .use-cases-note svg { flex:0 0 16px; margin-top:2px; color:var(--navy); }
+.commercial .use-cases-note { display:flex; align-items:flex-start; gap:6px; margin:16px 0 0; color:var(--muted); font-size:var(--type-micro); line-height:1.5; }
+.commercial .use-cases-note svg { width:12px; height:12px; flex:0 0 12px; margin-top:2px; color:inherit; }
 @media(max-width:1000px) {
  .commercial .use-cases-grid { grid-template-columns:1fr; gap:1px; }
  .commercial .use-cases-grid article { padding:var(--case-b) var(--case-a); }

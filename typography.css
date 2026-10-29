@@ -1,6 +1,7 @@
 /* Échelle web : base 16 px, tierce majeure (ratio 1,25).
    Les petits écrans utilisent les mêmes niveaux avec des rôles adaptés. */
 :root{
+ --type-micro:10.24px;
  --type-small:12.8px;
  --type-base:16px;
  --type-1:20px;
