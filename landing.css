@@ -142,7 +142,7 @@
  width:100%;
  max-width:none;
  margin:0;
- padding:var(--section-a) 0;
+ padding:var(--section-column) 0;
  gap:0;
 }
 .commercial #origine .landing-section-head>div { min-width:0; padding-inline:var(--section-a); }
