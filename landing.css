@@ -241,7 +241,9 @@
 }
 .commercial .use-cases-grid article:first-child { padding-left:var(--case-a); border-radius:0 7px 7px 0; }
 .commercial .use-cases-grid article:last-child { padding-right:var(--case-a); border-radius:7px 0 0 7px; }
-.commercial .use-case-profile { color:var(--muted); font-size:var(--type-small); font-weight:700; margin-bottom:16px; }
+.commercial .use-case-profile { color:#47616F; font-size:var(--type-base); line-height:1.4; font-weight:700; margin-bottom:12px; }
+.commercial .case-visual-editor + .use-case-profile { color:#6753B8; }
+.commercial .case-visual-calculations + .use-case-profile { color:#657700; }
 .commercial .use-cases-grid h3 { font-size:var(--type-2); line-height:1.3; margin-bottom:24px; }
 .commercial .use-case-copy { color:var(--muted); margin-bottom:32px; }
 .commercial .use-case-tags { margin-top:auto; border-top:1px solid var(--line); padding-top:20px; }
