@@ -411,7 +411,7 @@
  border-radius:4px; background:transparent; color:var(--muted);
  font:inherit; font-size:var(--type-small); line-height:1.4; cursor:pointer;
 }
-.solution-zoom-trigger svg { width:14px; height:14px; flex:none; }
+.solution-zoom-trigger { width:28px; padding:5px; }
 .solution-zoom-trigger:hover { color:var(--navy); background:#f0f8cf; border-color:#cbd69a; }
 .solution-zoom-trigger:focus-visible,.solution-zoom-close:focus-visible { outline:2px solid var(--navy); outline-offset:2px; }
 .commercial .option-with-zoom { display:flex; align-items:flex-start; gap:8px; margin-bottom:16px; }
@@ -444,3 +444,7 @@ body.solution-zoom-open { overflow:hidden; }
  .solution-zoom-heading,.solution-zoom-main,.solution-zoom-scope { padding:20px; }
  .solution-zoom h2 { font-size:var(--type-2); }
 }
+
+/* Original Flaticon Regular Rounded issue-loupe, extracted from the shared font. */
+.fi-rr-issue-loupe { display:inline-block; width:16px; height:16px; flex:0 0 16px; background:currentColor; -webkit-mask:var(--issue-loupe-shape) center/contain no-repeat; mask:var(--issue-loupe-shape) center/contain no-repeat; }
+:root { --issue-loupe-shape:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cg%20transform%3D%22translate%280%20300%29%20scale%281%20-1%29%22%3E%3Cpath%20d%3D%22M296%2021%20222%2096Q235%20112%20242.5%20132.5Q250%20153%20250%20175Q250%20209%20233.0%20237.5Q216%20266%20187.5%20283.0Q159%20300%20125.0%20300.0Q91%20300%2062.5%20283.0Q34%20266%2017.0%20237.5Q0%20209%200.0%20175.0Q0%20141%2017.0%20112.5Q34%2084%2062.5%2067.0Q91%2050%20125%2050Q147%2050%20167.5%2057.5Q188%2065%20204%2078L279%204Q282%200%20287.5%200.0Q293%200%20296.5%203.5Q300%207%20300.0%2012.5Q300%2018%20296%2021ZM25%20175Q25%20202%2038.5%20225.0Q52%20248%2075.0%20261.5Q98%20275%20125.0%20275.0Q152%20275%20175.0%20261.5Q198%20248%20211.5%20225.0Q225%20202%20225.0%20175.0Q225%20148%20211.5%20125.0Q198%20102%20175.0%2088.5Q152%2075%20125.0%2075.0Q98%2075%2075.0%2088.5Q52%20102%2038.5%20125.0Q25%20148%2025%20175ZM144%20119Q144%20111%20138.5%20105.5Q133%20100%20125.0%20100.0Q117%20100%20111.5%20105.5Q106%20111%20106.0%20119.0Q106%20127%20111.5%20132.5Q117%20138%20125.0%20137.5Q133%20137%20138.5%20132.0Q144%20127%20144%20119ZM163%20213Q163%20202%20157.5%20193.0Q152%20184%20142%20179Q139%20177%20138%20172V162Q138%20157%20134.0%20153.5Q130%20150%20125.0%20150.0Q120%20150%20116.5%20153.5Q113%20157%20113%20162V170Q113%20174%20113%20178Q117%20194%20131%20201Q138%20205%20138%20212Q138%20218%20134.0%20221.5Q130%20225%20125.0%20225.0Q120%20225%20116.5%20221.5Q113%20218%20113.0%20212.5Q113%20207%20109.0%20203.5Q105%20200%20100.0%20200.0Q95%20200%2091.5%20203.5Q88%20207%2088%20212Q88%20228%2099.0%20239.0Q110%20250%20125.5%20250.0Q141%20250%20152.0%20239.0Q163%20228%20163%20212Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
