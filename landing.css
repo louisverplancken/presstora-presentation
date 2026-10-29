@@ -451,3 +451,5 @@ body.solution-zoom-open { overflow:hidden; }
 
 .solution-zoom-result { margin-top:24px; }
 .solution-zoom-result p { color:var(--muted); font-size:var(--type-base); line-height:1.6; margin:0; }
+
+.commercial .solution-feature-icon { width:18px; height:18px; flex:0 0 18px; margin-top:3px; color:var(--navy); }
