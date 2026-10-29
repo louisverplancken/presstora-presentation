@@ -303,7 +303,7 @@
 @media(min-width:701px) and (max-width:1000px) { .commercial .case-visual { max-width:560px; } }
 @media(max-width:400px) { .commercial .case-screen { left:12px; right:12px; } .commercial .private-shop-products { gap:5px; padding-inline:7px; } .commercial .private-shop-header { padding-inline:7px; } .commercial .private-shop-product>strong { font-size:8px; } .commercial .private-shop-action { font-size:7px; } }
 
-/* Nos solutions : same floating heading and joined modules as the audience section. */
+/* Nos solutions : floating heading and separate offer modules. */
 .commercial #packages {
  --solution-column:calc(100vw / 12);
  --solution-a:calc(var(--solution-column) / 2);
@@ -322,17 +322,16 @@
 .commercial #packages>.section-heading>p { text-align:right; }
 .commercial #packages .section-heading .landing-label { color:var(--muted); }
 .commercial #packages>.landing-connected {
- margin-inline:var(--solution-a); border:2px solid var(--navy);
- border-radius:7px; overflow:hidden; background:var(--navy);
+ margin-inline:var(--solution-a); border:0;
+ border-radius:0; overflow:visible; background:none;
 }
-.commercial #packages .packages { gap:0 2px; }
+.commercial #packages .packages { gap:24px clamp(16px, var(--solution-b), 32px); }
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
- --solution-left-radius:7px; --solution-right-radius:7px;
- border:0; border-radius:0; background:var(--navy); min-width:0;
+ --solution-left-radius:0px; --solution-right-radius:0px;
+ border:2px solid var(--navy); border-radius:7px; overflow:hidden;
+ background:var(--navy); min-width:0; row-gap:0;
 }
-.commercial #packages .package:first-child { --solution-left-radius:0px; }
-.commercial #packages .package:last-child { --solution-right-radius:0px; }
 .commercial #packages .package.basic { --solution-ink:#657700; --solution-fill:var(--lime); --solution-background:#f0f8cf; }
 .commercial #packages .package.edition { --solution-ink:#6753B8; --solution-fill:var(--violet); --solution-background:#eee9ff; }
 .commercial #packages .package.gestion { --solution-ink:var(--navy); --solution-fill:var(--soft); --solution-background:var(--soft); }
@@ -358,15 +357,8 @@
  margin:16px var(--solution-a) 0; padding:0; border:0; background:none;
  font-size:var(--type-small); color:var(--muted);
 }
-@media(max-width:1150px) {
- .commercial #packages .packages { row-gap:1px; }
- .commercial #packages .package { row-gap:0; }
- .commercial #packages .package:nth-child(odd) { --solution-left-radius:0px; --solution-right-radius:7px; }
- .commercial #packages .package:nth-child(even) { --solution-left-radius:7px; --solution-right-radius:0px; }
-}
 @media(max-width:700px) {
  .commercial #packages { --solution-a:24px; --solution-b:24px; }
- .commercial #packages .package:nth-child(n) { --solution-left-radius:0px; --solution-right-radius:0px; }
  .commercial #packages>.section-heading { grid-template-columns:1fr; gap:24px; }
  .commercial #packages>.section-heading>p { text-align:left; }
  .commercial #packages .package h3 { font-size:var(--type-2); }
