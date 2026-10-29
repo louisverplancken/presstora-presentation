@@ -325,7 +325,7 @@
  margin-inline:var(--solution-a); border:1px solid var(--navy);
  border-radius:7px; overflow:hidden; background:var(--navy);
 }
-.commercial #packages .packages { gap:0 1px; }
+.commercial #packages .packages { gap:0 2px; }
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
  --solution-left-radius:7px; --solution-right-radius:7px;
