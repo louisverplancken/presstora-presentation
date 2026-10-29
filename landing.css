@@ -470,3 +470,13 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-detail-capture a:hover .solution-capture-enlarge { color:#657700; }
 .solution-detail-capture figcaption { margin-top:8px; font-size:var(--type-small); line-height:1.5; color:var(--muted); }
 .solution-detail-capture figcaption small { display:block; font-size:inherit; margin-top:4px; }
+
+/* Boutique uses the same details, with explicit principle views for planned services. */
+.solution-detail-capture[hidden],.solution-detail-principle[hidden] { display:none; }
+.solution-detail-principle { margin:24px 0; padding:18px; background:var(--soft); border:1px solid var(--line); border-radius:7px; }
+.solution-detail-principle figcaption { margin-top:12px; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
+.commercial .solution-detail-principle .private-shop { position:relative; inset:auto; }
+.solution-principle-flow { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.solution-principle-flow > div { padding:14px 10px; background:white; border:1px solid var(--line); border-radius:7px; font-size:var(--type-small); line-height:1.4; }
+.solution-principle-flow b { display:block; color:#47616f; font-size:20px; margin-bottom:12px; }
+@media(max-width:450px){ .solution-principle-flow { grid-template-columns:1fr; } .solution-principle-flow > div { display:flex; align-items:center; gap:12px; } .solution-principle-flow b { margin:0; } }
