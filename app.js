@@ -26,17 +26,18 @@ const packageIncludedDetails={edition:['Prévisualisation et partage 2D et 3D','
 // Commercial working prices: all amounts are EUR excluding VAT, no checkout.
 const configurationPricing={
  solutions:{basic:{cadence:'Abonnement',amount:159,annualAmount:149},commerce:{cadence:'Abonnement',amount:159,annualAmount:149},edition:{cadence:'Abonnement',amount:159,annualAmount:149},gestion:{cadence:'Abonnement',amount:219,annualAmount:199}},
- options:{pdf:{cadence:'Abonnement mensuel',amount:29},sheet:{cadence:'Abonnement mensuel',amount:9},quote:{cadence:'Abonnement mensuel',amount:9},b2b:{cadence:'Abonnement mensuel',amount:99},impose:{cadence:'Abonnement mensuel',amount:49},planning:{cadence:'Abonnement mensuel',amount:29},webshop:{cadence:'Prestation ponctuelle',amount:null,label:'Sur devis'},templates:{cadence:'À l’usage',amount:null,label:'À définir'},'management-automation':{cadence:'Intégration et maintenance',amount:null,label:'Sur devis'}},
+ options:{pdf:{cadence:'Abonnement',amount:32,annualAmount:29},sheet:{cadence:'Abonnement',amount:10,annualAmount:9},quote:{cadence:'Abonnement',amount:10,annualAmount:9},b2b:{cadence:'Abonnement',amount:109,annualAmount:99},impose:{cadence:'Abonnement',amount:54,annualAmount:49},planning:{cadence:'Abonnement',amount:32,annualAmount:29},webshop:{cadence:'Prestation ponctuelle',amount:null,label:'Sur devis'},templates:{cadence:'À l’usage',amount:null,label:'À définir'},'management-automation':{cadence:'Intégration et maintenance',amount:null,label:'Sur devis'}},
  allIn:{monthly:749,annualMonthly:699,options:['pdf','b2b','impose','planning']}
 };
 let billingPeriod='monthly';
 const euros=n=>new Intl.NumberFormat('fr-BE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
 const discountPercent=(amount,base)=>new Intl.NumberFormat('fr-BE',{maximumFractionDigits:1}).format(amount/base*100);
 function solutionPrice(id,period='monthly'){const p=configurationPricing.solutions[id];return period==='annual'?p.annualAmount:p.amount;}
-function optionPrice(id){const price=configurationPricing.options[id];return price.amount===null?price.label:euros(price.amount)+' HT / mois';}
+function optionAmount(id,period='monthly'){const p=configurationPricing.options[id];return period==='annual'?(p.annualAmount??p.amount):p.amount;}
+function optionPrice(id){const p=configurationPricing.options[id];return p.amount===null?p.label:`${euros(p.amount)} HT / mois<span class="option-annual">ou ${euros(p.annualAmount)} HT / mois en annuel</span>`;}
 function pricingSummary(period=billingPeriod){
  const allIn=packages.every(p=>selected.has(p.id))&&configurationPricing.allIn.options.every(id=>options.has(id));
- const subtotal=packages.filter(p=>selected.has(p.id)).reduce((sum,p)=>sum+solutionPrice(p.id,period),0)+[...options].reduce((sum,id)=>sum+(configurationPricing.options[id].amount||0),0);
+ const subtotal=packages.filter(p=>selected.has(p.id)).reduce((sum,p)=>sum+solutionPrice(p.id,period),0)+[...options].reduce((sum,id)=>sum+(optionAmount(id,period)||0),0);
  const monthly=allIn?(period==='annual'?configurationPricing.allIn.annualMonthly:configurationPricing.allIn.monthly):subtotal;
  return {allIn,subtotal,monthly,discount:subtotal-monthly,annual:monthly*12};
 }
@@ -66,13 +67,13 @@ function configurationRows(p){
  const rows=configurationFeatures[p.id].map(([label,id],i)=>({ref:ref+'.'+String(i+1).padStart(2,'0'),label,id,kind:'feature',billing:'Compris',price:'Inclus'}));
  const included=packageIncludedDetails[p.id];
  if(included)rows.push({ref:ref+'.'+String(rows.length+1).padStart(2,'0'),label:included[0],id:included[1],kind:'included',billing:p.id==='commerce'?'Service inclus':'Compris',price:'Inclus'});
- p.options.forEach(([id,label],i)=>{if(options.has(id))rows.push({ref:ref+'.'+String.fromCharCode(65+i),label:'Option · '+label+(id==='b2b'?' · illimité':''),id,kind:'option',billing:configurationPricing.options[id].cadence,price:configurationPricing.options[id].amount===null?configurationPricing.options[id].label:euros(configurationPricing.options[id].amount)});});
+ p.options.forEach(([id,label],i)=>{if(options.has(id))rows.push({ref:ref+'.'+String.fromCharCode(65+i),label:'Option · '+label+(id==='b2b'?' · illimité':''),id,kind:'option',billing:configurationPricing.options[id].cadence,price:configurationPricing.options[id].amount===null?configurationPricing.options[id].label:euros(optionAmount(id)),annualPrice:configurationPricing.options[id].amount===null?configurationPricing.options[id].label:euros(optionAmount(id,'annual'))});});
  return {ref,rows};
 }
 function renderConfiguration(p){
  const {ref,rows}=configurationRows(p);
  const icon=`<svg class="configuration-icon" width="22" height="22" viewBox="0 0 300 300" aria-hidden="true"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${solutionIcons[p.id]}"/></g></svg>`;
- return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><td class="configuration-reference">${ref}</td><th scope="rowgroup" id="configuration-${p.id}"><span class="configuration-name">${icon}Presstora ${p.name}</span><small>${p.tag}</small></th><td class="configuration-price">${euros(solutionPrice(p.id))}</td><td class="configuration-price">${euros(solutionPrice(p.id,'annual'))}</td></tr>${rows.map(r=>`<tr class="configuration-${r.kind}"><td class="configuration-reference">${r.ref}</td><td>${inlineDetailTitle(r.label,r.id)}${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<small class="configuration-planned">${r.billing} · en supplément</small>`:''}${['management-connectors','management-automation'].includes(r.id)?'<small class="configuration-planned">En préparation</small>':''}</td>${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<td colspan="2" class="configuration-price">${r.price}</td>`:`<td class="configuration-price">${r.price}</td><td class="configuration-price">${r.price}</td>`}</tr>`).join('')}</tbody>`;
+ return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><td class="configuration-reference">${ref}</td><th scope="rowgroup" id="configuration-${p.id}"><span class="configuration-name">${icon}Presstora ${p.name}</span><small>${p.tag}</small></th><td class="configuration-price">${euros(solutionPrice(p.id))}</td><td class="configuration-price">${euros(solutionPrice(p.id,'annual'))}</td></tr>${rows.map(r=>`<tr class="configuration-${r.kind}"><td class="configuration-reference">${r.ref}</td><td>${inlineDetailTitle(r.label,r.id)}${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<small class="configuration-planned">${r.billing} · en supplément</small>`:''}${['management-connectors','management-automation'].includes(r.id)?'<small class="configuration-planned">En préparation</small>':''}</td>${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<td colspan="2" class="configuration-price">${r.price}</td>`:`<td class="configuration-price">${r.price}</td><td class="configuration-price">${r.annualPrice??r.price}</td>`}</tr>`).join('')}</tbody>`;
 }
 function update(){
  const required=selected.has('commerce')||selected.has('gestion');
@@ -90,7 +91,7 @@ function update(){
    description.textContent=included?'Inclus avec Gestion':desc;
    for(const label of input.labels)label.title=!on?'Sélectionnez cette solution pour ajouter cette option':'';
    description.classList.toggle('included',included);
-   document.querySelector(`[data-price="${id}"]`).textContent=included?'Sans supplément':optionPrice(id);
+   document.querySelector(`[data-price="${id}"]`).innerHTML=included?'Sans supplément':optionPrice(id);
   }
  }
  const {names,extra}=getSummary();
@@ -133,7 +134,7 @@ byId('download').addEventListener('click',()=>{
  for(const p of configurationSolutions()){
   const {ref,rows}=configurationRows(p),price=euros(solutionPrice(p.id)),annualPrice=euros(solutionPrice(p.id,'annual'));
   lines.push('',`${ref} | Presstora ${p.name} | ${price} | ${annualPrice}`);
-  rows.forEach(r=>lines.push(r.kind==='option'&&configurationPricing.options[r.id].amount===null?`${r.ref} | ${r.label} | ${r.price} · ${r.billing} · en supplément`:`${r.ref} | ${r.label}${['management-connectors','management-automation'].includes(r.id)?' (en préparation)':''} | ${r.price} | ${r.price}`));
+  rows.forEach(r=>lines.push(r.kind==='option'&&configurationPricing.options[r.id].amount===null?`${r.ref} | ${r.label} | ${r.price} · ${r.billing} · en supplément`:`${r.ref} | ${r.label}${['management-connectors','management-automation'].includes(r.id)?' (en préparation)':''} | ${r.price} | ${r.annualPrice??r.price}`));
  }
  lines.push('','SYNTHÈSE TARIFAIRE','À la carte avec paiement mensuel : '+euros(monthly.subtotal)+' HT / mois','À la carte avec paiement annuel : '+euros(annual.subtotal)+' HT / mois');
  if(tariff.allIn)lines.push('Remise All-in, formule mensuelle : −'+euros(monthly.discount)+' HT / mois','Remise All-in, formule annuelle : −'+euros(annual.discount)+' HT / mois');

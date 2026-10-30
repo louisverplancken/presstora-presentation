@@ -702,3 +702,5 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-list:has(.configuration-table)::after { content:""; display:block; flex:1 0 0; width:100%; min-width:720px; background:linear-gradient(var(--line),var(--line)) 64% 0 / 1px 100% no-repeat,linear-gradient(var(--line),var(--line)) 82% 0 / 1px 100% no-repeat; }
 .configuration-table tfoot .configuration-price { border-left:1px solid var(--line); }
 .configuration-table thead th { border-bottom:2px solid var(--navy); }
+
+.commercial .option-price .option-annual { display:block; font-weight:400; color:var(--muted); }
