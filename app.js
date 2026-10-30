@@ -27,7 +27,7 @@ const packageIncludedDetails={edition:['Prévisualisation et partage 2D et 3D','
 const configurationPricing={
  solutions:{basic:{cadence:'Abonnement',amount:159,annualAmount:149},commerce:{cadence:'Abonnement',amount:159,annualAmount:149},edition:{cadence:'Abonnement',amount:159,annualAmount:149},gestion:{cadence:'Abonnement',amount:219,annualAmount:199}},
  options:{pdf:{cadence:'Abonnement mensuel',amount:29},sheet:{cadence:'Abonnement mensuel',amount:9},quote:{cadence:'Abonnement mensuel',amount:9},b2b:{cadence:'Abonnement mensuel',amount:99},impose:{cadence:'Abonnement mensuel',amount:49},planning:{cadence:'Abonnement mensuel',amount:29},webshop:{cadence:'Prestation ponctuelle',amount:null,label:'Sur devis'},templates:{cadence:'À l’usage',amount:null,label:'À définir'},'management-automation':{cadence:'Intégration et maintenance',amount:null,label:'Sur devis'}},
- allIn:{monthly:649,annualMonthly:599,options:['pdf','b2b','impose','planning']}
+ allIn:{monthly:749,annualMonthly:699,options:['pdf','b2b','impose','planning']}
 };
 let billingPeriod='monthly';
 const euros=n=>new Intl.NumberFormat('fr-BE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
