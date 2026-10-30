@@ -519,7 +519,7 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-section-copy h3 { margin-top:20px; }
 
 /* Configuration: full-width module, eight columns of content and four of summary. */
-.commercial .selection { --configuration-column:calc(100vw / 12); --configuration-a:calc(var(--configuration-column) / 2); --configuration-b:calc(var(--configuration-column) / 4); margin:var(--configuration-column) 0 0; padding:0; border:0; border-top:1px solid var(--navy); }
+.commercial .selection { --configuration-column:calc(100vw / 12); --configuration-a:calc(var(--configuration-column) / 2); --configuration-b:calc(var(--configuration-column) / 4); margin:calc(var(--configuration-column) / 2) 0 0; padding:0; border:0; border-top:1px solid var(--navy); }
 .commercial .selection-header { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:0; align-items:center; margin:0; padding:var(--configuration-a) 0; background:#f0f8cf; }
 .commercial .selection-header>div { padding-left:var(--configuration-a); padding-right:var(--configuration-b); }
 .commercial .selection-header>#reset { justify-self:end; margin-right:var(--configuration-a); margin-left:var(--configuration-b); }
