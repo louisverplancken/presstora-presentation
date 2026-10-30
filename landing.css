@@ -387,13 +387,11 @@
 .commercial .features .fi-rr-check-circle { margin-top:4px; }
 .commercial .package .toggle { display:flex; align-items:center; justify-content:center; gap:8px; }
 .commercial .option input {
- appearance:none; border:0; border-radius:0; background:var(--navy); cursor:pointer;
- -webkit-mask:var(--empty-circle-shape) center/contain no-repeat;
- mask:var(--empty-circle-shape) center/contain no-repeat;
+ appearance:none; border:1px solid var(--navy); border-radius:50%; background:white; cursor:pointer;
+ -webkit-mask:none; mask:none;
 }
 .commercial .option input:checked {
- -webkit-mask:var(--check-circle-shape) center/contain no-repeat;
- mask:var(--check-circle-shape) center/contain no-repeat;
+ background:radial-gradient(circle at center,var(--navy) 0 55%,white 58%);
 }
 .commercial .option input:disabled { opacity:.45; cursor:default; }
 .commercial .option input:focus-visible { outline:none; }
