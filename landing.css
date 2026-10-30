@@ -604,15 +604,16 @@ body.solution-zoom-open { overflow:hidden; }
 .package-price strong { font-size:var(--type-2); line-height:1.2; }
 .package-price span,.option-price { font-size:var(--type-small); }
 .commercial .option-copy .option-price { display:block; margin-top:5px; color:var(--navy); font-weight:700; line-height:1.4; }
-.allin-offer { margin:var(--solution-gutter) var(--solution-a) 0; padding:var(--solution-b); display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:var(--solution-a); border:1px solid var(--navy); border-radius:7px; background:white; }
-.allin-offer h3 { font-size:var(--type-3); margin-bottom:16px; }
+.allin-offer { margin:var(--solution-gutter) var(--solution-a) 0; padding:var(--solution-b); display:grid; grid-template-columns:minmax(0,1fr); gap:24px; border:1px solid var(--navy); border-radius:7px; background:white; }
+.allin-offer h3 { font-size:var(--type-3); margin-bottom:8px; }
 .allin-offer p { line-height:1.5; }
-.allin-offer .allin-inclusions { margin:12px 0; }
+.allin-offer .allin-inclusions { margin:8px 0; }
 .allin-offer small { display:block; font-size:var(--type-small); color:var(--muted); line-height:1.5; }
-.allin-action { align-self:center; }
+.allin-action { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px var(--solution-a); padding-top:16px; border-top:1px solid var(--line); }
 .allin-action>p:first-child strong { font-size:var(--type-3); }
 .allin-action>p+p { margin-top:12px; }
-.allin-action button { margin:20px 0 12px; }
+.allin-footer { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; }
+.allin-footer button { width:auto; margin:0; }
 .billing-period { display:flex; gap:16px; margin:16px 0; padding:12px 0; border:0; border-bottom:1px solid var(--line); }
 .billing-period legend { font-size:var(--type-small); color:var(--muted); }
 .billing-period label { display:flex; align-items:center; gap:6px; font-size:var(--type-small); cursor:pointer; }
@@ -634,6 +635,8 @@ body.solution-zoom-open { overflow:hidden; }
 .annual-saving { background:#eee9ff; }
 .allin-rate .rate-amount { margin-bottom:6px; }
 .allin-rate .rate-amount strong { font-size:var(--type-3); }
-.annual-rate { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+.annual-rate { margin:0; padding:0; }
 .configuration-next .configuration-savings { color:var(--navy); font-weight:700; }
 .configuration-savings[hidden] { display:none; }
+
+@media(max-width:700px){ .allin-action { grid-template-columns:minmax(0,1fr); gap:20px; } .annual-rate { padding-top:20px; border-top:1px solid var(--line); } .allin-footer button { width:100%; } }
