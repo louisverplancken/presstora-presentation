@@ -541,10 +541,10 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-table .configuration-solution-heading small { display:block; margin:4px 0 0 30px; font-size:var(--type-small); color:var(--muted); font-weight:400; }
 .configuration-name { display:flex; align-items:center; gap:8px; }
 .configuration-icon { flex:none; color:var(--navy); }
-.configuration-solution.basic .configuration-icon { color:var(--lime); }
-.configuration-solution.commerce .configuration-icon { color:#e5edf0; }
-.configuration-solution.edition .configuration-icon { color:var(--violet); }
-.configuration-solution.gestion .configuration-icon { color:var(--soft); }
+.configuration-solution.basic .configuration-icon { color:#657700; }
+.configuration-solution.commerce .configuration-icon { color:#47616F; }
+.configuration-solution.edition .configuration-icon { color:#6753B8; }
+.configuration-solution.gestion .configuration-icon { color:var(--navy); }
 .configuration-table tbody:last-child tr:last-child>* { border-bottom:0; }
 .configuration-table .detail-title-row { display:flex; align-items:center; gap:8px; font-size:var(--type-small); line-height:1.4; padding-left:30px; }
 .configuration-table .detail-title-row>span { flex:1; }
