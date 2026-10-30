@@ -31,6 +31,7 @@ const configurationPricing={
 };
 let billingPeriod='monthly';
 const euros=n=>new Intl.NumberFormat('fr-BE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+const discountPercent=(amount,base)=>new Intl.NumberFormat('fr-BE',{maximumFractionDigits:1}).format(amount/base*100);
 function optionPrice(id){const price=configurationPricing.options[id];return price.amount===null?price.label:euros(price.amount)+' HT / mois';}
 function pricingSummary(){
  const allIn=packages.every(p=>selected.has(p.id))&&configurationPricing.allIn.options.every(id=>options.has(id));
@@ -99,6 +100,10 @@ function update(){
  const tariff=pricingSummary();
  byId('configuration-plan').textContent=tariff.allIn?'Presstora All-in':'Configuration à la carte';
  byId('price-subtotal').textContent=euros(tariff.subtotal);
+ byId('price-subtotal').classList.toggle('price-reference',tariff.allIn);
+ byId('price-discount-basis').textContent=tariff.allIn?'≈ −'+discountPercent(tariff.discount,tariff.subtotal)+' % par rapport à la carte':'HT / mois';
+ byId('configuration-savings').hidden=!tariff.allIn;
+ byId('configuration-savings').textContent=tariff.allIn?euros(tariff.discount)+' HT économisés par mois, soit '+euros(tariff.discount*12)+' HT par an par rapport à la carte.':'';
  byId('price-discount-row').hidden=!tariff.allIn;
  byId('price-discount').textContent='−'+euros(tariff.discount);
  byId('price-monthly').textContent=names.length?euros(tariff.monthly):'—';

@@ -625,3 +625,15 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-table .configuration-total>* { font-weight:700; }
 #configuration-plan { font-weight:700; color:var(--navy); }
 @media(max-width:700px){ .allin-offer { grid-template-columns:minmax(0,1fr); gap:24px; padding:24px; } }
+
+/* Savings always identify their comparison basis. */
+.allin-rate .rate-label { display:block; font-size:var(--type-small); font-weight:700; margin-bottom:8px; }
+.allin-rate .rate-comparison { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px; }
+.rate-comparison s,.price-reference { color:var(--muted); text-decoration:line-through; }
+.saving-badge { display:inline-block; padding:3px 7px; border-radius:4px; background:var(--lime); color:var(--navy); font-size:var(--type-small); font-weight:700; line-height:1.4; }
+.annual-saving { background:#eee9ff; }
+.allin-rate .rate-amount { margin-bottom:6px; }
+.allin-rate .rate-amount strong { font-size:var(--type-3); }
+.annual-rate { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+.configuration-next .configuration-savings { color:var(--navy); font-weight:700; }
+.configuration-savings[hidden] { display:none; }
