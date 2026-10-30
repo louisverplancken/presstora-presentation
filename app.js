@@ -104,12 +104,14 @@ function update(){
  for(const period of ['monthly','annual']){
   const ref=byId('summary-'+period+'-reference');ref.hidden=period==='annual'?!(names.length&&annual.monthly<monthly.monthly):!tariff.allIn;ref.textContent=euros(period==='annual'?monthly.monthly:monthly.subtotal);
   ref.setAttribute('aria-label',period==='annual'?'Tarif avec paiement mensuel':'Valeur à la carte en paiement mensuel');
+  byId('summary-'+period+'-comparison').hidden=ref.hidden;
+  byId('summary-'+period+'-percent').textContent=ref.hidden?'':'≈ −'+discountPercent(period==='annual'?monthly.monthly-annual.monthly:monthly.discount,period==='annual'?monthly.monthly:monthly.subtotal)+' %';
   byId('billing-'+period).disabled=!names.length;
  }
  byId('summary-monthly-saving').hidden=!tariff.allIn;
- byId('summary-monthly-saving').textContent=tariff.allIn?'−'+euros(monthly.discount)+' / mois vs à la carte':'';
+ byId('summary-monthly-saving').textContent=tariff.allIn?euros(monthly.discount)+' économisés chaque mois par rapport à la carte':'';
  byId('summary-annual-saving').hidden=!names.length||annual.monthly>=monthly.monthly;
- byId('summary-annual-saving').textContent=names.length&&annual.monthly<monthly.monthly?'−'+euros((monthly.monthly-annual.monthly)*12)+' / an':'';
+ byId('summary-annual-saving').textContent=names.length&&annual.monthly<monthly.monthly?euros((monthly.monthly-annual.monthly)*12)+' économisés par an':'';
  byId('summary-same-price').hidden=annual.monthly!==monthly.monthly||!names.length;
  const extraLines=packages.flatMap(p=>p.options.filter(([id])=>options.has(id)&&configurationPricing.options[id].amount===null).map(([id,label])=>`<li>${label} : ${configurationPricing.options[id].label.toLowerCase()}</li>`));
  byId('summary-extras').hidden=!extraLines.length;
