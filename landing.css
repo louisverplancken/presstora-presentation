@@ -306,6 +306,7 @@
 /* Nos solutions : floating heading and separate offer modules. */
 .commercial #packages {
  --solution-column:calc(100vw / 12);
+ --solution-gutter:clamp(8px, calc(var(--solution-column) / 8), 16px);
  --solution-a:calc(var(--solution-column) / 2);
  --solution-b:calc(var(--solution-column) / 4);
 }
@@ -325,7 +326,7 @@
  margin-inline:var(--solution-a); border:0;
  border-radius:0; overflow:visible; background:none;
 }
-.commercial #packages .packages { gap:24px clamp(8px, calc(var(--solution-column) / 8), 16px); }
+.commercial #packages .packages { gap:24px var(--solution-gutter); }
 .commercial #packages .package {
  --solution-ink:#47616F; --solution-fill:#e5edf0; --solution-background:#eef3f5;
  --solution-left-radius:0px; --solution-right-radius:0px;
@@ -603,7 +604,7 @@ body.solution-zoom-open { overflow:hidden; }
 .package-price strong { font-size:var(--type-2); line-height:1.2; }
 .package-price span,.option-price { font-size:var(--type-small); }
 .commercial .option-copy .option-price { display:block; margin-top:5px; color:var(--navy); font-weight:700; line-height:1.4; }
-.allin-offer { margin:32px var(--solution-a) 0; padding:var(--solution-b); display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:var(--solution-a); border:1px solid var(--navy); border-radius:7px; background:white; }
+.allin-offer { margin:var(--solution-gutter) var(--solution-a) 0; padding:var(--solution-b); display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:var(--solution-a); border:1px solid var(--navy); border-radius:7px; background:white; }
 .allin-offer h3 { font-size:var(--type-3); margin-bottom:16px; }
 .allin-offer p { line-height:1.5; }
 .allin-offer .allin-inclusions { margin:12px 0; }
