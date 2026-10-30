@@ -596,3 +596,31 @@ body.solution-zoom-open { overflow:hidden; }
  .commercial .selection-header { grid-template-columns:1fr; gap:24px; }
  .commercial .selection-header>#reset { justify-self:start; margin-left:var(--configuration-a); }
 }
+
+/* Working commercial rates and complete-package selection. */
+.package-price { display:flex; align-items:baseline; gap:8px; margin:auto 0 20px; padding-top:16px; }
+.commercial #packages .package .toggle { margin-top:0; }
+.package-price strong { font-size:var(--type-2); line-height:1.2; }
+.package-price span,.option-price { font-size:var(--type-small); }
+.commercial .option-copy .option-price { display:block; margin-top:5px; color:var(--navy); font-weight:700; line-height:1.4; }
+.allin-offer { margin:32px var(--solution-a) 0; padding:var(--solution-b); display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:var(--solution-a); border:1px solid var(--navy); border-radius:7px; background:white; }
+.allin-offer h3 { font-size:var(--type-3); margin-bottom:16px; }
+.allin-offer p { line-height:1.5; }
+.allin-offer .allin-inclusions { margin:12px 0; }
+.allin-offer small { display:block; font-size:var(--type-small); color:var(--muted); line-height:1.5; }
+.allin-action { align-self:center; }
+.allin-action>p:first-child strong { font-size:var(--type-3); }
+.allin-action>p+p { margin-top:12px; }
+.allin-action button { margin:20px 0 12px; }
+.billing-period { display:flex; gap:16px; margin:16px 0; padding:12px 0; border:0; border-bottom:1px solid var(--line); }
+.billing-period legend { font-size:var(--type-small); color:var(--muted); }
+.billing-period label { display:flex; align-items:center; gap:6px; font-size:var(--type-small); cursor:pointer; }
+.billing-period input { accent-color:var(--navy); }
+.configuration-totals>div[hidden] { display:none; }
+.configuration-totals .price-main { border-bottom:1px solid var(--navy); }
+.configuration-totals .price-main dd { font-size:var(--type-1); }
+.configuration-table tfoot th { font-size:var(--type-small); font-weight:400; }
+.configuration-table tfoot tr:first-child>* { border-top:1px solid var(--navy); }
+.configuration-table .configuration-total>* { font-weight:700; }
+#configuration-plan { font-weight:700; color:var(--navy); }
+@media(max-width:700px){ .allin-offer { grid-template-columns:minmax(0,1fr); gap:24px; padding:24px; } }
