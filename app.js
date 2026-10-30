@@ -34,11 +34,29 @@ function getSummary(){
 function configurationSolutions(){
  return packages.filter(p=>selected.has(p.id));
 }
-function renderConfiguration(p){
- const chosen=p.options.filter(([id])=>options.has(id));
+const configurationFeatures={
+ basic:[['Calcul des coûts et des prix de vente','prices'],['Simulation et comparaison de variantes','prices'],['Bibliothèque des supports, équipements et prestations','library'],['Enregistrement et réutilisation des modèles de calcul','models'],['Paramétrage des marges et règles commerciales','margins'],['Calcul de l’imposition et des besoins en feuilles','imposition']],
+ commerce:[['Configuration des produits et des options de vente','products'],['Calcul des prix en ligne via Presstora Calculs','shop-prices'],['Gestion des commandes et des livraisons','orders'],['Connecteur e-commerce — WooCommerce','connector']],
+ edition:[['Préparation des modèles et des zones modifiables','authoring'],['Personnalisation des créations','personalization'],['Gestion des ressources graphiques','graphics'],['Sauvegarde des projets et export PDF','creation-save']],
+ gestion:[['Création des devis et propositions commerciales','management-quotes'],['Organisation et suivi de la fabrication','management-jobs'],['Facturation et suivi des paiements','management-invoices'],['Statistiques économiques et de production','management-insights'],['Connecteurs Peppol et comptabilité','management-connectors']]
+};
+// Unknown prices remain null; no invented amounts or combined recurring/one-off total.
+const configurationPricing={
+ solutions:Object.fromEntries(packages.map(p=>[p.id,{cadence:'Abonnement mensuel',amount:null}])),
+ options:{webshop:{cadence:'Prestation ponctuelle',amount:null},templates:{cadence:'À l’usage',amount:null}}
+};
+function configurationRows(p){
+ const ref=String(packages.indexOf(p)+1).padStart(2,'0');
+ const rows=configurationFeatures[p.id].map(([label,id],i)=>({ref:ref+'.'+String(i+1).padStart(2,'0'),label,id,kind:'feature',billing:'Compris',price:'—'}));
  const included=packageIncludedDetails[p.id];
- const row=(label,id,status,kind='feature')=>`<tr class="configuration-${kind}"><td>${inlineDetailTitle(label,id)}${id==='management-connectors'?'<small class="configuration-planned">Prévus</small>':''}</td><td><span class="configuration-status ${kind}">${status}</span></td></tr>`;
- return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><th scope="rowgroup" id="configuration-${p.id}">${p.name}<small>${p.tag}</small></th><td>Solution sélectionnée</td></tr>${p.features.map((f,i)=>row(f.label,packageFeatureIds[p.id][i],'Compris')).join('')}${included?row(included[0],included[1],'Inclus','included'):''}${chosen.map(([id,label])=>row(label,id,'Option ajoutée','option')).join('')}</tbody>`;
+ if(included)rows.push({ref:ref+'.'+String(rows.length+1).padStart(2,'0'),label:included[0],id:included[1],kind:'included',billing:p.id==='commerce'?'Service inclus':'Compris',price:'Inclus'});
+ p.options.forEach(([id,label],i)=>{if(options.has(id))rows.push({ref:ref+'.'+String.fromCharCode(65+i),label:'Option · '+label,id,kind:'option',billing:configurationPricing.options[id]?.cadence||'À définir',price:'À définir'});});
+ return {ref,rows};
+}
+function renderConfiguration(p){
+ const {ref,rows}=configurationRows(p);
+ const icon=`<svg class="configuration-icon" width="22" height="22" viewBox="0 0 300 300" aria-hidden="true"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${solutionIcons[p.id]}"/></g></svg>`;
+ return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><td class="configuration-reference">${ref}</td><th scope="rowgroup" id="configuration-${p.id}"><span class="configuration-name">${icon}Presstora ${p.name}</span><small>${p.tag}</small></th><td>${configurationPricing.solutions[p.id].cadence}</td><td class="configuration-price">À définir</td></tr>${rows.map(r=>`<tr class="configuration-${r.kind}"><td class="configuration-reference">${r.ref}</td><td>${inlineDetailTitle(r.label,r.id)}${r.id==='management-connectors'?'<small class="configuration-planned">En préparation</small>':''}</td><td class="configuration-billing">${r.billing}</td><td class="configuration-price">${r.price}</td></tr>`).join('')}</tbody>`;
 }
 function update(){
  const required=selected.has('commerce')||selected.has('gestion');
@@ -60,9 +78,12 @@ function update(){
  }
  const {names,extra}=getSummary();
  byId('count').textContent=names.length;
- byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col><col class="configuration-status-column"></colgroup><thead><tr><th scope="col">Désignation</th><th scope="col">Dans votre configuration</th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
+ byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col class="configuration-reference-column"><col><col class="configuration-billing-column"><col class="configuration-price-column"></colgroup><thead><tr><th scope="col">Réf.</th><th scope="col">Désignation</th><th scope="col">Facturation</th><th scope="col">Prix HT</th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
  byId('dependency').textContent=required?'Calculs est le cœur commun de Boutique et Gestion : il n’est ajouté qu’une seule fois à votre configuration.':selected.has('edition')&&!selected.has('basic')?'Création peut être utilisée seule pour créer et personnaliser, sans calcul de fabrication ni boutique.':'Votre configuration évolue avec vos besoins : vous pouvez ajouter des solutions et des options.';
  byId('selected-options').innerHTML=configurationSolutions().map(p=>{const chosen=p.options.filter(([id])=>options.has(id));return `<li><b>${p.name}</b>${chosen.length?`<small>${chosen.map(([,name])=>name).join(' · ')}</small>`:''}</li>`;}).join('')||'<li>Aucune solution sélectionnée.</li>';
+ byId('price-monthly').textContent=names.length?'À définir':'—';
+ byId('price-once').textContent=options.has('webshop')?'À définir':'Non sélectionné';
+ byId('price-usage').textContent=options.has('templates')?'À définir':'Non sélectionné';
  byId('download').disabled=!names.length;
  byId('feedback').textContent='';
 }
@@ -70,16 +91,13 @@ byId('cards').addEventListener('click',event=>{const button=event.target.closest
 byId('cards').addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-option]'))return;if(input.checked)options.add(input.dataset.option);else options.delete(input.dataset.option);update();});
 byId('reset').addEventListener('click',()=>{selected.clear();selected.add('basic');options.clear();update();byId('feedback').textContent='Sélection réinitialisée à Calculs.';});
 byId('download').addEventListener('click',()=>{
- const lines=['PRESSTORA — MA CONFIGURATION','Solutions Presstora en préparation · Sans engagement'];
+ const lines=['PRESSTORA — MA CONFIGURATION','Solutions Presstora en préparation · Sans engagement','','RÉF. | DÉSIGNATION | FACTURATION | PRIX HT'];
  for(const p of configurationSolutions()){
-  lines.push('',p.name.toUpperCase()+' — '+p.tag,'LES FONCTIONNALITÉS');
-  p.features.forEach(f=>lines.push('• '+f.label+' — '+f.description));
-  if(packageIncludedDetails[p.id])lines.push('INCLUS','• '+packageIncludedDetails[p.id][0]);
-  lines.push('OPTIONS SÉLECTIONNÉES');
-  const chosen=p.options.filter(([id])=>options.has(id));
-  lines.push(...(chosen.length?chosen.map(([,name,desc])=>'• '+name+' — '+desc):['Aucune option supplémentaire.']));
+  const {ref,rows}=configurationRows(p);
+  lines.push('',`${ref} | Presstora ${p.name} | ${configurationPricing.solutions[p.id].cadence} | À définir`);
+  rows.forEach(r=>lines.push(`${r.ref} | ${r.label}${r.id==='management-connectors'?' (en préparation)':''} | ${r.billing} | ${r.price}`));
  }
- lines.push('',byId('dependency').textContent,'','Certaines fonctionnalités sont en préparation ; consultez les fiches de détails pour leur périmètre et leur disponibilité.','Tarifs et disponibilités à définir. Cette configuration n’est ni une commande ni un engagement.');
+ lines.push('','SYNTHÈSE TARIFAIRE','Abonnements : à définir (HT / mois)','Prestations ponctuelles : '+byId('price-once').textContent,'Consommations à l’usage : '+byId('price-usage').textContent,'Options : modalités de facturation à confirmer lorsque non définies','',byId('dependency').textContent,'','Certaines fonctionnalités sont en préparation ; consultez les fiches de détails pour leur périmètre et leur disponibilité.','Tarifs et disponibilités à définir. Cette configuration n’est ni une commande ni un engagement.');
  const text=lines.join('\n');
  const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Presstora-ma-configuration.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('feedback').textContent='Récapitulatif téléchargé. Aucun achat ni envoi effectué.';
 });
