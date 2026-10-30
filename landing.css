@@ -600,7 +600,8 @@ body.solution-zoom-open { overflow:hidden; }
 }
 
 /* Working commercial rates and complete-package selection. */
-.package-price { display:flex; align-items:baseline; gap:8px; margin:auto 0 20px; }
+.package-price { display:flex; flex-direction:column; align-items:flex-start; gap:5px; margin:auto 0 20px; }
+.package-price small { font-size:var(--type-small); line-height:1.4; color:var(--muted); }
 .commercial #packages .package .toggle { margin-top:0; }
 .package-price strong { font-size:var(--type-2); line-height:1.2; }
 .package-price span,.option-price { font-size:var(--type-small); }
@@ -683,3 +684,5 @@ body.solution-zoom-open { overflow:hidden; }
 .commercial .selection-action #download { margin-top:20px; }
 .commercial .selection-action .subscription-disclaimer { font-size:var(--type-small); margin:10px 0 0; }
 @media(min-width:901px) and (max-width:1150px){ .subscription-choice { padding:8px; } .subscription-price { font-size:var(--type-1); } }
+
+.package-price>div { display:flex; align-items:baseline; gap:6px; }
