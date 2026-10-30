@@ -31,6 +31,14 @@ function getSummary(){
  const extra=packages.flatMap(p=>p.options.filter(([id])=>options.has(id)).map(([,name])=>name));
  return {names,extra};
 }
+function configurationSolutions(){
+ return packages.filter(p=>selected.has(p.id));
+}
+function renderConfiguration(p){
+ const chosen=p.options.filter(([id])=>options.has(id));
+ const included=packageIncludedDetails[p.id];
+ return `<article class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><header class="configuration-solution-heading"><h3 id="configuration-${p.id}">${p.name}</h3><span>${p.tag}</span></header><div class="configuration-solution-body"><div><h4 class="mini-title">LES FONCTIONNALITÉS</h4><ul class="configuration-features">${p.features.map((f,i)=>`<li>${inlineDetailTitle(f.label,packageFeatureIds[p.id][i])}<small>${f.description}</small></li>`).join('')}</ul></div><div class="configuration-extras">${included?`<div class="configuration-included"><h4 class="mini-title"><span class="included">INCLUS</span></h4>${inlineDetailTitle(...included)}</div>`:''}<div><h4 class="mini-title">OPTIONS SÉLECTIONNÉES</h4>${chosen.length?`<ul class="configuration-options">${chosen.map(([id,label,desc])=>`<li>${inlineDetailTitle(label,id)}<small>${desc}</small></li>`).join('')}</ul>`:'<p class="configuration-none">Aucune option supplémentaire.</p>'}</div></div></div></article>`;
+}
 function update(){
  const required=selected.has('commerce')||selected.has('gestion');
  if(required) selected.add('basic');
@@ -51,10 +59,9 @@ function update(){
  }
  const {names,extra}=getSummary();
  byId('count').textContent=names.length;
- byId('selected-packages').innerHTML=names.length?names.map(name=>`<span class="chip">${name}</span>`).join(''):'<span>Aucune solution sélectionnée.</span>';
- byId('dependency').textContent=required?'Calculs est sélectionné une seule fois pour les solutions Boutique et/ou Gestion.':selected.has('edition')&&!selected.has('basic')?'Création seule : création et personnalisation, sans chiffrage industriel ni boutique.':'Ajoutez les solutions et les options adaptées à votre activité.';
- byId('selected-options').innerHTML=(selected.has('gestion')?'<p class="option-summary"><b>Inclus avec Gestion</b> Générateurs de devis et de fiches de fabrication.</p>':'')+(selected.has('commerce')?'<p class="option-summary"><b>Inclus avec Boutique</b> Configuration et mise en ligne de votre premier produit · Connecteur e-commerce.</p>':'')+(selected.has('edition')?'<p class="option-summary"><b>Inclus avec Création</b> Prévisualisation et partage 2D et 3D · Export PDF.</p>':'')+`<p class="option-summary"><b>Options sélectionnées</b> ${extra.length?extra.join(' · '):'Aucune pour le moment.'}</p>`;
- byId('total-label').textContent=`${names.length} solution${names.length>1?'s':''}${extra.length?' + '+extra.length+' option'+(extra.length>1?'s':''):''}`;
+ byId('selected-packages').innerHTML=names.length?configurationSolutions().map(renderConfiguration).join(''):'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
+ byId('dependency').textContent=required?'Calculs est le cœur commun de Boutique et Gestion : il n’est ajouté qu’une seule fois à votre configuration.':selected.has('edition')&&!selected.has('basic')?'Création peut être utilisée seule pour créer et personnaliser, sans calcul de fabrication ni boutique.':'Votre configuration évolue avec vos besoins : vous pouvez ajouter des solutions et des options.';
+ byId('selected-options').innerHTML=configurationSolutions().map(p=>{const chosen=p.options.filter(([id])=>options.has(id));return `<li><b>${p.name}</b>${chosen.length?`<small>${chosen.map(([,name])=>name).join(' · ')}</small>`:''}</li>`;}).join('')||'<li>Aucune solution sélectionnée.</li>';
  byId('download').disabled=!names.length;
  byId('feedback').textContent='';
 }
@@ -62,9 +69,18 @@ byId('cards').addEventListener('click',event=>{const button=event.target.closest
 byId('cards').addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-option]'))return;if(input.checked)options.add(input.dataset.option);else options.delete(input.dataset.option);update();});
 byId('reset').addEventListener('click',()=>{selected.clear();selected.add('basic');options.clear();update();byId('feedback').textContent='Sélection réinitialisée à Calculs.';});
 byId('download').addEventListener('click',()=>{
- const {names,extra}=getSummary();
- const text=['PRESSTORA — MA SÉLECTION','Solutions Presstora en préparation · Sans engagement','','SOLUTIONS SÉLECTIONNÉES',...names.map(x=>'• '+x),'','INCLUSIONS',...(selected.has('commerce')?['• Configuration et mise en ligne de votre premier produit','• Connecteur e-commerce']:[]),...(selected.has('gestion')?['• Générateurs de devis et de fiches de fabrication','• Connecteurs de facturation prévus : Peppol et comptabilité, frais tiers à préciser']:[]),...(selected.has('edition')?['• Prévisualisation et partage 2D et 3D · Export PDF']:[]),'','OPTIONS',...(extra.length?extra.map(x=>'• '+x):["Aucune"]), '',byId('dependency').textContent,'','Tarifs et disponibilités à définir. Cette sélection n’est ni une commande ni un engagement.'].join('\n');
- const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Presstora-ma-selection.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('feedback').textContent='Récapitulatif téléchargé. Aucun achat ni envoi effectué.';
+ const lines=['PRESSTORA — MA CONFIGURATION','Solutions Presstora en préparation · Sans engagement'];
+ for(const p of configurationSolutions()){
+  lines.push('',p.name.toUpperCase()+' — '+p.tag,'LES FONCTIONNALITÉS');
+  p.features.forEach(f=>lines.push('• '+f.label+' — '+f.description));
+  if(packageIncludedDetails[p.id])lines.push('INCLUS','• '+packageIncludedDetails[p.id][0]);
+  lines.push('OPTIONS SÉLECTIONNÉES');
+  const chosen=p.options.filter(([id])=>options.has(id));
+  lines.push(...(chosen.length?chosen.map(([,name,desc])=>'• '+name+' — '+desc):['Aucune option supplémentaire.']));
+ }
+ lines.push('',byId('dependency').textContent,'','Certaines fonctionnalités sont en préparation ; consultez les fiches de détails pour leur périmètre et leur disponibilité.','Tarifs et disponibilités à définir. Cette configuration n’est ni une commande ni un engagement.');
+ const text=lines.join('\n');
+ const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Presstora-ma-configuration.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('feedback').textContent='Récapitulatif téléchargé. Aucun achat ni envoi effectué.';
 });
 update();
 
@@ -76,7 +92,7 @@ zoomDialog.setAttribute('aria-labelledby','solution-zoom-title');
 zoomDialog.innerHTML=`<button type="button" class="solution-zoom-close" aria-label="Fermer la fiche" title="Fermer" autofocus><i class="fi fi-rr-circle-xmark" aria-hidden="true"></i></button><div class="solution-zoom-main"><p id="solution-zoom-kind"></p><h2 id="solution-zoom-title"></h2><p id="solution-zoom-lead"></p><section class="connector-compatibilities" hidden aria-labelledby="connector-compatibilities-title"><h3 id="connector-compatibilities-title">Compatibilités</h3><div class="connector-platforms"><article class="connector-platform"><a class="connector-brand" href="https://woocommerce.com/" target="_blank" rel="noopener" aria-label="WooCommerce · site officiel (nouvel onglet)"><img src="assets/connectors/woocommerce.svg" alt="WooCommerce" width="140" height="37"></a><span class="connector-status tested">Testé en prototype</span><p>Produits, prix et commandes reliés à WooCommerce. Paiement de démonstration.</p></article><article class="connector-platform"><a class="connector-brand" href="https://www.shopify.com/" target="_blank" rel="noopener" aria-label="Shopify · site officiel (nouvel onglet)"><img src="assets/connectors/shopify.svg" alt="Shopify" width="140" height="40"></a><span class="connector-status planned">Envisagé</span><p>Une connexion à votre boutique Shopify, à développer.</p></article><article class="connector-platform"><a class="connector-brand" href="https://www.odoo.com/" target="_blank" rel="noopener" aria-label="Odoo · site officiel (nouvel onglet)"><img src="assets/connectors/odoo.svg" alt="Odoo" width="150" height="81"></a><span class="connector-status planned">Envisagé</span><p>Une connexion à Odoo et à son e-commerce, à définir.</p></article></div><p class="connector-compatibility-note">Shopify et Odoo : périmètre et disponibilité à confirmer.</p></section><section class="personalization-modes" hidden aria-labelledby="personalization-modes-title"><h3 id="personalization-modes-title">Trois façons de personnaliser</h3><ul><li><div><h4>Éditeur visuel</h4><span class="connector-status tested">Dans le prototype</span></div><p>Modifiez directement les zones autorisées du document : textes, images, couleurs et placement.</p></li><li><div><h4>Personnalisation par formulaire</h4><span class="connector-status planned">Envisagée</span></div><p>Remplissez des champs et voyez le document se mettre à jour dans l’aperçu.</p></li><li><div><h4>Personnalisation à partir de données</h4><span class="connector-status planned">Envisagée</span></div><p>Utilisez une liste pour produire plusieurs versions d’un modèle, par exemple une carte par collaborateur.</p></li></ul></section><figure class="solution-detail-capture"><a id="solution-capture-link" target="_blank" rel="noopener"><span class="solution-capture-frame"><img id="solution-capture-image" width="1512" height="982" decoding="async"></span><span class="solution-capture-enlarge">Agrandir la capture <span aria-hidden="true">↗</span></span></a><figcaption><span id="solution-capture-caption"></span><small>Interface Presstora · données de démonstration</small></figcaption></figure><figure class="solution-detail-principle" hidden></figure><section class="solution-zoom-how"><h3>Comment ça se passe ?</h3><div id="solution-zoom-copy"></div></section><section class="solution-detail-sections" hidden aria-label="Fonctions complémentaires"></section><section class="solution-zoom-result"><h3>Ce que vous obtenez</h3><p id="solution-zoom-result"></p></section><section class="solution-zoom-example"><h3>Par exemple</h3><p id="solution-zoom-example"></p></section></div><section class="solution-zoom-scope"><h3>Ce qui est compris — et ce qui ne l’est pas</h3><p id="solution-zoom-scope"></p><small>Presstora est en préparation. Cette fiche décrit le périmètre prévu de la solution.</small></section>`;
 document.body.append(zoomDialog);
 let zoomOpener=null;
-byId('cards').addEventListener('click',event=>{
+document.addEventListener('click',event=>{
  const trigger=event.target.closest('[data-zoom]');if(!trigger)return;
  const detail=solutionDetails[trigger.dataset.zoom];if(!detail)return;
  zoomOpener=trigger;

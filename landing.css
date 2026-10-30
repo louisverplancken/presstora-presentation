@@ -517,3 +517,56 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-section-copy .solution-section-kind { font-size:var(--type-small); }
 .solution-section-copy .solution-section-lead { font-weight:700; color:var(--navy); }
 .solution-section-copy h3 { margin-top:20px; }
+
+/* Configuration: full-width module, eight columns of content and four of summary. */
+.commercial .selection { margin:var(--section-space) 0 0; padding:0; border:0; }
+.commercial .selection-header { margin:0 calc(100vw / 48) calc(100vw / 24); }
+.commercial .selection-content { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:0; border:1px solid var(--navy); border-radius:7px; overflow:clip; align-items:stretch; }
+.configuration-list { min-width:0; }
+.configuration-solution + .configuration-solution { border-top:1px solid var(--navy); }
+.configuration-solution-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px calc(100vw / 48); background:var(--soft); border-bottom:1px solid var(--line); }
+.configuration-solution.basic .configuration-solution-heading { background:#f1f9cb; }
+.configuration-solution.commerce .configuration-solution-heading { background:#edf2f4; }
+.configuration-solution.edition .configuration-solution-heading { background:#eee9ff; }
+.configuration-solution-heading h3 { font-size:var(--type-1); line-height:1.3; }
+.configuration-solution-heading>span { font-size:var(--type-small); color:var(--muted); }
+.configuration-solution-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:calc(100vw / 48); padding:calc(100vw / 48); }
+.configuration-solution-body .mini-title { margin:0 0 16px; font-size:var(--type-small); }
+.configuration-features,.configuration-options { list-style:none; margin:0; padding:0; }
+.configuration-features li + li,.configuration-options li + li { margin-top:16px; }
+.configuration-solution .detail-title-row { display:flex; align-items:flex-start; gap:8px; font-size:var(--type-base); line-height:1.3; }
+.configuration-solution .detail-title-row>span { flex:1; }
+.configuration-solution small { display:block; font-size:var(--type-small); line-height:1.4; color:var(--muted); margin-top:4px; padding-right:28px; }
+.configuration-extras { border-left:1px solid var(--line); padding-left:calc(100vw / 48); }
+.configuration-included { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+.configuration-included .included { display:inline-block; background:#edffaf; color:var(--navy); padding:2px 5px; border-radius:2px; }
+.configuration-none { color:var(--muted); font-size:var(--type-small); line-height:1.4; }
+.commercial .selection-action { min-width:0; padding:calc(100vw / 48); border-left:1px solid var(--navy); background:var(--soft); }
+.configuration-summary-inner { position:sticky; top:24px; }
+.commercial .selection-action h3 { margin:16px 0 24px; font-size:var(--type-2); line-height:1.3; }
+.configuration-summary-list { list-style:none; margin:0; padding:0; }
+.configuration-summary-list li { padding:12px 0; border-bottom:1px solid var(--line); }
+.configuration-summary-list li:first-child { padding-top:0; }
+.configuration-summary-list small { margin-top:4px; }
+.commercial .selection-action .dependency { font-size:var(--type-small); margin:20px 0; }
+.configuration-next { margin-top:32px; }
+.commercial .configuration-next>p { font-size:var(--type-small); }
+.configuration-edit { display:flex; justify-content:space-between; margin-top:16px; font-size:var(--type-small); text-underline-offset:3px; }
+.commercial .selection #feedback { margin:12px calc(100vw / 48) 0; }
+.configuration-empty { padding:calc(100vw / 24); }
+.configuration-empty p { margin:16px 0; color:var(--muted); }
+@media(max-width:900px){
+ .commercial .selection-content { grid-template-columns:minmax(0,1fr); }
+ .commercial .selection-action { border-left:0; border-top:1px solid var(--navy); padding:24px; }
+ .configuration-summary-inner { position:static; }
+ .configuration-solution-heading,.configuration-solution-body { padding:24px; }
+ .configuration-solution-body { gap:24px; }
+ .configuration-extras { padding-left:24px; }
+ .commercial .selection-header { margin:0 24px 32px; }
+}
+@media(max-width:550px){
+ .configuration-solution-body { grid-template-columns:minmax(0,1fr); }
+ .configuration-extras { padding:24px 0 0; border-left:0; border-top:1px solid var(--line); }
+ .configuration-solution-heading { align-items:flex-start; flex-direction:column; gap:4px; }
+ .configuration-empty { padding:24px; }
+}
