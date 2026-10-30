@@ -519,16 +519,21 @@ body.solution-zoom-open { overflow:hidden; }
 .solution-section-copy h3 { margin-top:20px; }
 
 /* Configuration: full-width module, eight columns of content and four of summary. */
-.commercial .selection { margin:var(--section-space) 0 0; padding:0; border:0; }
-.commercial .selection-header { margin:0 calc(100vw / 48) calc(100vw / 24); }
-.commercial .selection-content { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:0; border:1px solid var(--navy); border-radius:7px; overflow:clip; align-items:stretch; }
-.configuration-list { min-width:0; overflow-x:auto; }
+.commercial .selection { --configuration-column:calc(100vw / 12); --configuration-a:calc(var(--configuration-column) / 2); --configuration-b:calc(var(--configuration-column) / 4); margin:var(--configuration-column) 0 0; padding:0; border:0; border-top:1px solid var(--navy); }
+.commercial .selection-header { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:0; align-items:center; margin:0; padding:var(--configuration-a) 0; }
+.commercial .selection-header>div { padding-left:var(--configuration-a); padding-right:var(--configuration-b); }
+.commercial .selection-header>#reset { justify-self:end; margin-right:var(--configuration-a); margin-left:var(--configuration-b); }
+.commercial .selection-content { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:0 1px; border:0; border-block:1px solid var(--navy); border-radius:0; background:var(--navy); overflow:clip; align-items:stretch; }
+.configuration-list { min-width:0; overflow-x:auto; background:white; border-radius:0 7px 7px 0; }
 .configuration-list:focus-visible { outline:2px solid var(--navy); outline-offset:-3px; }
-.configuration-table { width:100%; min-width:620px; table-layout:fixed; border-collapse:collapse; font-size:var(--type-base); line-height:1.35; background:white; }
-.configuration-reference-column { width:8%; }
+.configuration-table { width:100%; min-width:720px; table-layout:fixed; border-collapse:collapse; font-size:var(--type-base); line-height:1.35; background:white; }
+.configuration-reference-column { width:calc(var(--configuration-a) + 4ch + 16px); }
 .configuration-billing-column { width:19%; }
 .configuration-price-column { width:14%; }
 .configuration-table th,.configuration-table td { text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.configuration-table tr>:first-child { padding-left:var(--configuration-a); }
+.configuration-table tr>:last-child { padding-right:var(--configuration-b); }
+.configuration-table tbody:first-of-type .configuration-solution-heading>* { border-top:0; }
 .configuration-table tr>:nth-child(n+3) { border-left:1px solid var(--line); }
 .configuration-table thead th { font-size:var(--type-small); color:var(--muted); font-weight:700; padding-block:18px; }
 .configuration-table .configuration-solution-heading>* { border-top:1px solid var(--navy); padding-block:18px; }
@@ -550,7 +555,7 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-table .configuration-option .detail-title-row,.configuration-table .configuration-included .configuration-price { font-weight:700; }
 .configuration-planned { display:block; margin:4px 0 0 30px; font-size:var(--type-small); color:var(--muted); }
 .configuration-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-.commercial .selection-action { min-width:0; padding:calc(100vw / 48); border-left:1px solid var(--navy); background:white; }
+.commercial .selection-action { min-width:0; padding:var(--configuration-b) var(--configuration-a) var(--configuration-b) var(--configuration-b); border:0; border-radius:7px 0 0 7px; background:white; }
 .configuration-totals { margin:16px 0 24px; }
 .configuration-totals>div { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:14px 0; border-bottom:1px solid var(--line); }
 .configuration-totals dt { font-size:var(--type-small); }
@@ -566,15 +571,16 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-next { margin-top:32px; }
 .commercial .configuration-next>p { font-size:var(--type-small); }
 .configuration-edit { display:flex; justify-content:space-between; margin-top:16px; font-size:var(--type-small); text-underline-offset:3px; }
-.commercial .selection #feedback { margin:12px calc(100vw / 48) 0; }
-.configuration-empty { padding:calc(100vw / 24); }
+.commercial .selection #feedback { margin:12px var(--configuration-a) 0; }
+.configuration-empty { padding:var(--configuration-b) var(--configuration-b) var(--configuration-b) var(--configuration-a); }
 .configuration-empty p { margin:16px 0; color:var(--muted); }
 @media(max-width:900px){
- .commercial .selection-content { grid-template-columns:minmax(0,1fr); }
- .commercial .selection-action { border-left:0; border-top:1px solid var(--navy); padding:24px; }
+ .commercial .selection-content { grid-template-columns:minmax(0,1fr); gap:1px; }
+ .configuration-list { border-radius:0 0 7px 7px; }
+ .commercial .selection-action { border:0; border-radius:7px 7px 0 0; padding:var(--configuration-b) var(--configuration-a); }
  .configuration-summary-inner { position:static; }
  .configuration-table th,.configuration-table td { padding-inline:12px; }
- .commercial .selection-header { margin:0 24px 32px; }
+
 }
 @media(max-width:550px){
  .configuration-table th,.configuration-table td { padding-inline:12px; }
@@ -583,4 +589,10 @@ body.solution-zoom-open { overflow:hidden; }
 }
 
 .configuration-scroll-hint { display:none; }
-@media(max-width:620px){ .configuration-scroll-hint { display:block; margin:0 24px 16px; font-size:var(--type-small); color:var(--muted); line-height:1.4; } }
+@media(max-width:720px){ .configuration-scroll-hint { display:block; margin:0 24px 16px; font-size:var(--type-small); color:var(--muted); line-height:1.4; } }
+
+@media(max-width:700px){
+ .commercial .selection { --configuration-a:24px; --configuration-b:24px; }
+ .commercial .selection-header { grid-template-columns:1fr; gap:24px; }
+ .commercial .selection-header>#reset { justify-self:start; margin-left:var(--configuration-a); }
+}
