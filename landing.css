@@ -690,3 +690,7 @@ body.solution-zoom-open { overflow:hidden; }
 
 .subscription-reference { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:6px; }
 .subscription-amount { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; }
+
+/* A single boundary below the table header; the module owns the outer bottom edge. */
+.configuration-table tbody:first-of-type .configuration-solution-heading>* { border-top:0; }
+.configuration-table tfoot tr:last-child>* { border-bottom:0; }
