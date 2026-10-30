@@ -95,7 +95,7 @@ function update(){
  }
  const {names,extra}=getSummary();
  byId('count').textContent=names.length;
- byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col class="configuration-reference-column"><col><col class="configuration-price-column"><col class="configuration-price-column"></colgroup><thead><tr><th scope="col">Réf.</th><th scope="col">Désignation</th><th scope="col">Mensuel<small>HT / mois</small></th><th scope="col">Annuel<small>HT / mois</small></th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}${configurationTotals()}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
+ byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col class="configuration-reference-column"><col><col class="configuration-price-column"><col class="configuration-price-column"></colgroup><thead><tr><th scope="col">Réf.</th><th scope="col">Désignation <span class="configuration-unit">· Tarifs HT / mois</span></th><th scope="col">Mensuel</th><th scope="col">Annuel</th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}${configurationTotals()}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
  const tariff=pricingSummary(),monthly=pricingSummary('monthly'),annual=pricingSummary('annual');
  byId('configuration-plan').textContent=tariff.allIn?'Presstora All-in':'À la carte';
  byId('summary-monthly-price').textContent=names.length?euros(monthly.monthly):'—';
@@ -109,7 +109,7 @@ function update(){
  byId('summary-monthly-saving').hidden=!tariff.allIn;
  byId('summary-monthly-saving').textContent=tariff.allIn?'−'+euros(monthly.discount)+' / mois vs à la carte':'';
  byId('summary-annual-saving').hidden=!names.length||annual.monthly>=monthly.monthly;
- byId('summary-annual-saving').textContent=names.length&&annual.monthly<monthly.monthly?'−'+euros((monthly.monthly-annual.monthly)*12)+' / an vs le mensuel':'';
+ byId('summary-annual-saving').textContent=names.length&&annual.monthly<monthly.monthly?'−'+euros((monthly.monthly-annual.monthly)*12)+' / an':'';
  byId('summary-same-price').hidden=annual.monthly!==monthly.monthly||!names.length;
  const extraLines=packages.flatMap(p=>p.options.filter(([id])=>options.has(id)&&configurationPricing.options[id].amount===null).map(([id,label])=>`<li>${label} : ${configurationPricing.options[id].label.toLowerCase()}</li>`));
  byId('summary-extras').hidden=!extraLines.length;
