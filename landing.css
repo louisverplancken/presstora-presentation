@@ -609,7 +609,7 @@ body.solution-zoom-open { overflow:hidden; }
 .allin-offer p { line-height:1.5; }
 .allin-offer .allin-inclusions { margin:8px 0; }
 .allin-offer small { display:block; font-size:var(--type-small); color:var(--muted); line-height:1.5; }
-.allin-action { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px var(--solution-a); padding-top:16px; border-top:1px solid var(--line); }
+.allin-action { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px var(--solution-a); padding-top:16px; }
 .allin-action>p:first-child strong { font-size:var(--type-3); }
 .allin-action>p+p { margin-top:12px; }
 .allin-footer { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; }
