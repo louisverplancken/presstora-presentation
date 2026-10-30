@@ -503,3 +503,17 @@ body.solution-zoom-open { overflow:hidden; }
 .personalization-modes li>div { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 .personalization-modes h4 { margin:0; font-size:var(--type-base); line-height:1.3; }
 .personalization-modes p { margin:8px 0 0; font-size:var(--type-small); line-height:1.4; color:var(--muted); }
+
+/* Compact offer lists; complete explanations remain in their detail sheets. */
+.package-included-note { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font-size:var(--type-small); line-height:1.4; }
+.package-included-note>.included { display:inline-block; margin-bottom:6px; background:#edffaf; padding:2px 5px; border-radius:3px; font-weight:700; }
+.solution-detail-sections[hidden] { display:none; }
+.solution-detail-sections { margin-top:24px; border-top:1px solid var(--line); }
+.solution-detail-sections details { border-bottom:1px solid var(--line); }
+.solution-detail-sections summary { padding:14px 28px 14px 0; font-size:var(--type-base); font-weight:700; line-height:1.4; cursor:pointer; }
+.solution-detail-sections summary:focus-visible { outline:2px solid var(--navy); outline-offset:3px; }
+.solution-section-copy { padding-bottom:12px; }
+.solution-section-copy p { margin:0 0 12px; color:var(--muted); font-size:var(--type-base); line-height:1.6; }
+.solution-section-copy .solution-section-kind { font-size:var(--type-small); }
+.solution-section-copy .solution-section-lead { font-weight:700; color:var(--navy); }
+.solution-section-copy h3 { margin-top:20px; }
