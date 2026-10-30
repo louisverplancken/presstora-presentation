@@ -640,3 +640,8 @@ body.solution-zoom-open { overflow:hidden; }
 .configuration-savings[hidden] { display:none; }
 
 @media(max-width:700px){ .allin-action { grid-template-columns:minmax(0,1fr); gap:20px; } .annual-rate { padding-top:20px; border-top:1px solid var(--line); } .allin-footer button { width:100%; } }
+
+@media(min-width:701px){
+ .allin-action .annual-rate { position:relative; }
+ .allin-action .annual-rate::before { content:""; position:absolute; top:0; bottom:0; left:calc(var(--solution-a) / -2); width:1px; background:var(--line); }
+}
