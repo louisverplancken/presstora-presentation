@@ -33,15 +33,15 @@ let billingPeriod='monthly';
 const euros=n=>new Intl.NumberFormat('fr-BE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
 const discountPercent=(amount,base)=>new Intl.NumberFormat('fr-BE',{maximumFractionDigits:1}).format(amount/base*100);
 function optionPrice(id){const price=configurationPricing.options[id];return price.amount===null?price.label:euros(price.amount)+' HT / mois';}
-function pricingSummary(){
+function pricingSummary(period=billingPeriod){
  const allIn=packages.every(p=>selected.has(p.id))&&configurationPricing.allIn.options.every(id=>options.has(id));
  const subtotal=packages.filter(p=>selected.has(p.id)).reduce((sum,p)=>sum+configurationPricing.solutions[p.id].amount,0)+[...options].reduce((sum,id)=>sum+(configurationPricing.options[id].amount||0),0);
- const monthly=allIn?(billingPeriod==='annual'?configurationPricing.allIn.annualMonthly:configurationPricing.allIn.monthly):subtotal;
+ const monthly=allIn?(period==='annual'?configurationPricing.allIn.annualMonthly:configurationPricing.allIn.monthly):subtotal;
  return {allIn,subtotal,monthly,discount:subtotal-monthly,annual:monthly*12};
 }
 function configurationTotals(){
- const t=pricingSummary();
- return `<tfoot><tr><th colspan="3" scope="row">Abonnements à la carte · HT / mois</th><td class="configuration-price">${euros(t.subtotal)}</td></tr>${t.allIn?`<tr><th colspan="3" scope="row">Remise All-in${billingPeriod==='annual'?' · paiement annuel':''}</th><td class="configuration-price">−${euros(t.discount)}</td></tr>`:''}<tr class="configuration-total"><th colspan="3" scope="row">${billingPeriod==='annual'?'Équivalent mensuel':'Total mensuel'} HT</th><td class="configuration-price">${euros(t.monthly)}</td></tr>${billingPeriod==='annual'?`<tr><th colspan="3" scope="row">Facturation annuelle HT</th><td class="configuration-price">${euros(t.annual)}</td></tr>`:''}</tfoot>`;
+ const m=pricingSummary('monthly'),a=pricingSummary('annual');
+ return `<tfoot><tr><th colspan="2" scope="row">Abonnements à la carte · HT / mois</th><td class="configuration-price">${euros(m.subtotal)}</td><td class="configuration-price">${euros(a.subtotal)}</td></tr>${m.allIn?`<tr><th colspan="2" scope="row">Remise All-in</th><td class="configuration-price">−${euros(m.discount)}</td><td class="configuration-price">−${euros(m.discount)}</td></tr><tr><th colspan="2" scope="row">Avantage du paiement annuel</th><td class="configuration-price">—</td><td class="configuration-price">−${euros(m.monthly-a.monthly)}</td></tr>`:''}<tr class="configuration-total"><th colspan="2" scope="row">Total HT / mois</th><td class="configuration-price">${euros(m.monthly)}</td><td class="configuration-price">${euros(a.monthly)}</td></tr><tr><th colspan="2" scope="row">Montant facturé HT</th><td class="configuration-price">${euros(m.monthly)}<small>chaque mois</small></td><td class="configuration-price">${euros(a.annual)}<small>une fois par an</small></td></tr></tfoot>`;
 }
 const selected=new Set(['basic']), options=new Set();
 const byId=id=>document.getElementById(id);
@@ -62,7 +62,7 @@ const configurationFeatures={
 };
 function configurationRows(p){
  const ref=String(packages.indexOf(p)+1).padStart(2,'0');
- const rows=configurationFeatures[p.id].map(([label,id],i)=>({ref:ref+'.'+String(i+1).padStart(2,'0'),label,id,kind:'feature',billing:'Compris',price:'—'}));
+ const rows=configurationFeatures[p.id].map(([label,id],i)=>({ref:ref+'.'+String(i+1).padStart(2,'0'),label,id,kind:'feature',billing:'Compris',price:'Inclus'}));
  const included=packageIncludedDetails[p.id];
  if(included)rows.push({ref:ref+'.'+String(rows.length+1).padStart(2,'0'),label:included[0],id:included[1],kind:'included',billing:p.id==='commerce'?'Service inclus':'Compris',price:'Inclus'});
  p.options.forEach(([id,label],i)=>{if(options.has(id))rows.push({ref:ref+'.'+String.fromCharCode(65+i),label:'Option · '+label+(id==='b2b'?' · illimité':''),id,kind:'option',billing:configurationPricing.options[id].cadence,price:configurationPricing.options[id].amount===null?configurationPricing.options[id].label:euros(configurationPricing.options[id].amount)});});
@@ -71,7 +71,7 @@ function configurationRows(p){
 function renderConfiguration(p){
  const {ref,rows}=configurationRows(p);
  const icon=`<svg class="configuration-icon" width="22" height="22" viewBox="0 0 300 300" aria-hidden="true"><g transform="translate(0 300) scale(1 -1)" fill="currentColor"><path d="${solutionIcons[p.id]}"/></g></svg>`;
- return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><td class="configuration-reference">${ref}</td><th scope="rowgroup" id="configuration-${p.id}"><span class="configuration-name">${icon}Presstora ${p.name}</span><small>${p.tag}</small></th><td>${configurationPricing.solutions[p.id].cadence}</td><td class="configuration-price">${euros(configurationPricing.solutions[p.id].amount)}</td></tr>${rows.map(r=>`<tr class="configuration-${r.kind}"><td class="configuration-reference">${r.ref}</td><td>${inlineDetailTitle(r.label,r.id)}${['management-connectors','management-automation'].includes(r.id)?'<small class="configuration-planned">En préparation</small>':''}</td><td class="configuration-billing">${r.billing}</td><td class="configuration-price">${r.price}</td></tr>`).join('')}</tbody>`;
+ return `<tbody class="configuration-solution ${p.id}" aria-labelledby="configuration-${p.id}"><tr class="configuration-solution-heading"><td class="configuration-reference">${ref}</td><th scope="rowgroup" id="configuration-${p.id}"><span class="configuration-name">${icon}Presstora ${p.name}</span><small>${p.tag}</small></th><td class="configuration-price">${euros(configurationPricing.solutions[p.id].amount)}</td><td class="configuration-price">${euros(configurationPricing.solutions[p.id].amount)}</td></tr>${rows.map(r=>`<tr class="configuration-${r.kind}"><td class="configuration-reference">${r.ref}</td><td>${inlineDetailTitle(r.label,r.id)}${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<small class="configuration-planned">${r.billing} · en supplément</small>`:''}${['management-connectors','management-automation'].includes(r.id)?'<small class="configuration-planned">En préparation</small>':''}</td>${r.kind==='option'&&configurationPricing.options[r.id].amount===null?`<td colspan="2" class="configuration-price">${r.price}</td>`:`<td class="configuration-price">${r.price}</td><td class="configuration-price">${r.price}</td>`}</tr>`).join('')}</tbody>`;
 }
 function update(){
  const required=selected.has('commerce')||selected.has('gestion');
@@ -94,26 +94,25 @@ function update(){
  }
  const {names,extra}=getSummary();
  byId('count').textContent=names.length;
- byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col class="configuration-reference-column"><col><col class="configuration-billing-column"><col class="configuration-price-column"></colgroup><thead><tr><th scope="col">Réf.</th><th scope="col">Désignation</th><th scope="col">Facturation</th><th scope="col">Prix HT</th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}${configurationTotals()}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
- byId('dependency').textContent=required?'Calculs est le cœur commun de Boutique et Gestion : il n’est ajouté qu’une seule fois à votre configuration.':selected.has('edition')&&!selected.has('basic')?'Création peut être utilisée seule pour créer et personnaliser, sans calcul de fabrication ni boutique.':'Votre configuration évolue avec vos besoins : vous pouvez ajouter des solutions et des options.';
- byId('selected-options').innerHTML=configurationSolutions().map(p=>{const chosen=p.options.filter(([id])=>options.has(id));return `<li><b>${p.name}</b>${chosen.length?`<small>${chosen.map(([,name])=>name).join(' · ')}</small>`:''}</li>`;}).join('')||'<li>Aucune solution sélectionnée.</li>';
- const tariff=pricingSummary();
- byId('configuration-plan').textContent=tariff.allIn?'Presstora All-in':'Configuration à la carte';
- byId('price-subtotal').textContent=euros(tariff.subtotal);
- byId('price-subtotal').classList.toggle('price-reference',tariff.allIn);
- byId('price-discount-basis').textContent=tariff.allIn?'≈ −'+discountPercent(tariff.discount,tariff.subtotal)+' % par rapport à la carte':'HT / mois';
- byId('configuration-savings').hidden=!tariff.allIn;
- byId('configuration-savings').textContent=tariff.allIn?euros(tariff.discount)+' HT économisés par mois, soit '+euros(tariff.discount*12)+' HT par an par rapport à la carte.':'';
- byId('price-discount-row').hidden=!tariff.allIn;
- byId('price-discount').textContent='−'+euros(tariff.discount);
- byId('price-monthly').textContent=names.length?euros(tariff.monthly):'—';
- byId('price-monthly-label').textContent=billingPeriod==='annual'?'Équivalent mensuel':'Abonnements';
- byId('price-annual-row').hidden=billingPeriod!=='annual';
- byId('price-annual').textContent=names.length?euros(tariff.annual):'—';
- byId('billing-note').textContent=billingPeriod==='annual'?`Paiement annuel${names.length?' de '+euros(tariff.annual)+' HT':''}. ${tariff.allIn?'600 € HT d’économie par an par rapport à All-in mensuel.':'La remise annuelle est réservée à All-in.'}`:'Paiement mensuel. Hébergement Presstora et mises à jour compris.';
- byId('price-once').textContent=options.has('webshop')?'Sur devis':'Non sélectionné';
- byId('price-usage').textContent=options.has('templates')?'À définir':'Non sélectionné';
- byId('price-integration-row').hidden=!options.has('management-automation');
+ byId('selected-packages').innerHTML=names.length?`<table class="configuration-table"><caption class="configuration-sr-only">Composition de votre configuration Presstora</caption><colgroup><col class="configuration-reference-column"><col><col class="configuration-price-column"><col class="configuration-price-column"></colgroup><thead><tr><th scope="col">Réf.</th><th scope="col">Désignation</th><th scope="col">Mensuel<small>HT / mois</small></th><th scope="col">Annuel<small>HT / mois</small></th></tr></thead>${configurationSolutions().map(renderConfiguration).join('')}${configurationTotals()}</table>`:'<div class="configuration-empty"><h3>Votre configuration commence ici.</h3><p>Choisissez une solution dans le tableau ci-dessus pour retrouver son contenu ici.</p><a href="#packages">Découvrir les solutions ↑</a></div>';
+ const tariff=pricingSummary(),monthly=pricingSummary('monthly'),annual=pricingSummary('annual');
+ byId('configuration-plan').textContent=tariff.allIn?'Presstora All-in':'À la carte';
+ byId('summary-monthly-price').textContent=names.length?euros(monthly.monthly):'—';
+ byId('summary-annual-price').textContent=names.length?euros(annual.monthly):'—';
+ byId('summary-annual-payment').textContent=names.length?euros(annual.annual)+' HT facturés par an':'Aucune solution sélectionnée';
+ for(const period of ['monthly','annual']){
+  const ref=byId('summary-'+period+'-reference');ref.hidden=!tariff.allIn;ref.textContent=euros(period==='annual'?monthly.monthly:tariff.subtotal);
+  ref.setAttribute('aria-label',period==='annual'?'Tarif mensuel All-in':'Valeur à la carte');
+  byId('billing-'+period).disabled=!names.length;
+ }
+ byId('summary-monthly-saving').hidden=!tariff.allIn;
+ byId('summary-monthly-saving').textContent=tariff.allIn?'−'+euros(monthly.discount)+' / mois vs à la carte':'';
+ byId('summary-annual-saving').hidden=!tariff.allIn;
+ byId('summary-annual-saving').textContent=tariff.allIn?'−'+euros((monthly.monthly-annual.monthly)*12)+' / an vs le mensuel':'';
+ byId('summary-same-price').hidden=tariff.allIn||!names.length;
+ const extraLines=packages.flatMap(p=>p.options.filter(([id])=>options.has(id)&&configurationPricing.options[id].amount===null).map(([id,label])=>`<li>${label} : ${configurationPricing.options[id].label.toLowerCase()}</li>`));
+ byId('summary-extras').hidden=!extraLines.length;
+ byId('summary-extras-list').innerHTML=extraLines.join('');
  byId('choose-all-in').textContent=tariff.allIn?'All-in dans ma sélection':'Choisir Presstora All-in';
  byId('choose-all-in').setAttribute('aria-pressed',String(tariff.allIn));
  byId('download').disabled=!names.length;
@@ -126,19 +125,18 @@ byId('choose-all-in').addEventListener('click',()=>{packages.forEach(p=>selected
 document.querySelectorAll('[name="billing-period"]').forEach(input=>input.addEventListener('change',()=>{billingPeriod=input.value;update();}));
 byId('download').addEventListener('click',()=>{
  const tariff=pricingSummary();
- const lines=['PRESSTORA — MA CONFIGURATION','Tarifs prévisionnels HT · Presstora en préparation · Sans engagement',tariff.allIn?'Formule : Presstora All-in':'Formule : à la carte',billingPeriod==='annual'?'Paiement annuel':'Paiement mensuel','','RÉF. | DÉSIGNATION | FACTURATION | PRIX HT'];
+ const monthly=pricingSummary('monthly'),annual=pricingSummary('annual');
+ const lines=['PRESSTORA — MA CONFIGURATION','Tarifs prévisionnels HT · Presstora en préparation · Sans engagement',tariff.allIn?'Formule : Presstora All-in':'Formule : à la carte',billingPeriod==='annual'?'Paiement choisi : annuel':'Paiement choisi : mensuel','','RÉF. | DÉSIGNATION | MENSUEL (HT/mois) | ANNUEL (HT/mois)'];
  for(const p of configurationSolutions()){
-  const {ref,rows}=configurationRows(p);
-  lines.push('',`${ref} | Presstora ${p.name} | ${configurationPricing.solutions[p.id].cadence} | ${euros(configurationPricing.solutions[p.id].amount)}`);
-  rows.forEach(r=>lines.push(`${r.ref} | ${r.label}${['management-connectors','management-automation'].includes(r.id)?' (en préparation)':''} | ${r.billing} | ${r.price}`));
+  const {ref,rows}=configurationRows(p),price=euros(configurationPricing.solutions[p.id].amount);
+  lines.push('',`${ref} | Presstora ${p.name} | ${price} | ${price}`);
+  rows.forEach(r=>lines.push(r.kind==='option'&&configurationPricing.options[r.id].amount===null?`${r.ref} | ${r.label} | ${r.price} · ${r.billing} · en supplément`:`${r.ref} | ${r.label}${['management-connectors','management-automation'].includes(r.id)?' (en préparation)':''} | ${r.price} | ${r.price}`));
  }
  lines.push('','SYNTHÈSE TARIFAIRE','Abonnements à la carte : '+euros(tariff.subtotal)+' HT / mois');
- if(tariff.allIn)lines.push('Remise All-in : −'+euros(tariff.discount)+' HT / mois');
- lines.push((billingPeriod==='annual'?'Équivalent mensuel : ':'Total mensuel : ')+euros(tariff.monthly)+' HT');
- if(billingPeriod==='annual')lines.push('Paiement annuel : '+euros(tariff.annual)+' HT');
- lines.push('Prestations ponctuelles : '+byId('price-once').textContent,'Consommations à l’usage : '+byId('price-usage').textContent);
- if(options.has('management-automation'))lines.push('Automatisation du workflow : intégration et maintenance sur devis, en supplément.');
- lines.push('','Hébergement Presstora et mises à jour compris.','All-in comprend les quatre solutions, Outils PDF, espaces clients et boutiques privées en nombre illimité, imposition de production et planification. Les générateurs sont inclus avec Gestion.','Hors All-in : boutique clé en main, prestations personnalisées, templates payants, automatisation du workflow, frais tiers et hébergement du site WordPress.','',byId('dependency').textContent,'','Certaines fonctionnalités sont en préparation ; consultez les fiches de détails pour leur périmètre et leur disponibilité.','Tarifs prévisionnels. Les abonnements ne sont pas encore ouverts. Cette configuration n’est ni une commande ni un engagement.');
+ if(tariff.allIn)lines.push('Remise All-in : −'+euros(monthly.discount)+' HT / mois (dans les deux formules)','Avantage annuel supplémentaire : −'+euros(monthly.monthly-annual.monthly)+' HT / mois');
+ lines.push('Paiement mensuel : '+euros(monthly.monthly)+' HT facturés chaque mois','Paiement annuel : '+euros(annual.monthly)+' HT / mois, soit '+euros(annual.annual)+' HT facturés en une fois par an');
+ if(tariff.allIn)lines.push('Économie annuelle par rapport au paiement mensuel : '+euros((monthly.monthly-annual.monthly)*12)+' HT');
+ lines.push('','Hébergement Presstora et mises à jour compris.','All-in comprend les quatre solutions, Outils PDF, espaces clients et boutiques privées en nombre illimité, imposition de production et planification. Les générateurs sont inclus avec Gestion.','Hors All-in : boutique clé en main, prestations personnalisées, templates payants, automatisation du workflow, frais tiers et hébergement du site WordPress.','','Certaines fonctionnalités sont en préparation ; consultez les fiches de détails pour leur périmètre et leur disponibilité.','Tarifs prévisionnels. Les abonnements ne sont pas encore ouverts. Cette configuration n’est ni une commande ni un engagement.');
  const text=lines.join('\n');
  const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Presstora-ma-configuration.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('feedback').textContent='Récapitulatif téléchargé. Aucun achat ni envoi effectué.';
 });
