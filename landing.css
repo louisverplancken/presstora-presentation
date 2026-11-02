@@ -744,9 +744,6 @@ body.solution-zoom-open { overflow:hidden; }
 .commercial .conviction-symbol { display:grid; place-items:center; width:56px; height:56px; margin-bottom:24px; border:1px solid var(--value-ink); border-radius:7px; background:var(--value-accent); color:var(--value-ink);  }
 .commercial .conviction-symbol svg { display:block; width:26px; height:26px; }
 .commercial .convictions-values article:nth-child(even) .conviction-symbol { border-radius:50%;  }
-@media(min-width:1101px) {
- .commercial .convictions-values article:nth-child(even) { padding-top:24px; }
-}
 @media(max-width:700px) {
  .commercial .convictions-values { gap:32px; }
  .commercial .convictions-values article { display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:20px; align-items:start; }
