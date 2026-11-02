@@ -32,7 +32,7 @@ header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
 }
 
 /* Film V1 : source adaptée aux proportions du bloc, rempli bord à bord. */
-.commercial .landing-hero { grid-template-columns:minmax(0,5fr) minmax(0,7fr); }
+.commercial .landing-hero { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .commercial .landing-hero-copy { justify-content:center; }
 .commercial .landing-film { position:relative; min-width:0; overflow:hidden; background:white; border-left:0; }
 .commercial .landing-film video { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; background:white; }
@@ -50,24 +50,20 @@ header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
  .commercial .landing-hero h1 { max-width:19ch; }
 }
 
-/* Un cran de moins dans l’échelle web pour le titre du bandeau. */
-@media(min-width:1151px) {
- .commercial .landing-hero h1 { font-size:var(--type-5); max-width:100%; }
+/* Deux phrases distinctes, une ligne chacune sur grand écran. */
+.commercial .landing-hero h1 { max-width:100%; }
+@media(min-width:1001px) {
+ .commercial .landing-hero { min-height:clamp(480px,37.5vw,640px); }
+ .commercial .landing-hero h1 { font-size:clamp(var(--type-3),3.3vw,var(--type-6)); }
+ .commercial .landing-hero h1 span { white-space:nowrap; }
 }
 
 /* Essai : un bandeau blanc continu, fondu court vers le film. */
 .commercial .landing-hero-copy { background:white; color:var(--navy); }
 .commercial .landing-hero .landing-label { color:var(--muted); }
 .commercial .landing-hero p { color:var(--muted); }
-.commercial .landing-hero h1 span {
- color:var(--navy);
- background:#edffaf;
- padding:.02em .08em;
- border-radius:3px;
- -webkit-box-decoration-break:clone;
- box-decoration-break:clone;
- text-decoration:none;
-}
+.commercial .landing-hero h1 span { display:block; color:var(--navy); }
+.commercial .landing-hero h1 span + span { margin-top:.24em; }
 .commercial .landing-film::after {
  content:"";
  position:absolute;
