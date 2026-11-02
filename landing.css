@@ -734,17 +734,16 @@ body.solution-zoom-open { overflow:hidden; }
 }
 
 /* Accents graphiques des convictions : mêmes pictos et palette que l’application. */
-.commercial .conviction-purpose-symbol { display:grid; place-items:center; flex:none; width:44px; height:44px; margin-right:4px; background:var(--lime); border:1px solid #657700; border-radius:7px; color:#657700; transform:rotate(-5deg); }
+.commercial .conviction-purpose-symbol { display:grid; place-items:center; flex:none; width:44px; height:44px; margin-right:4px; background:var(--lime); border:1px solid #657700; border-radius:7px; color:#657700;  }
 .commercial .conviction-purpose-symbol svg { width:24px; height:24px; }
-.commercial .convictions-purpose article:last-child .conviction-purpose-symbol { background:var(--violet); border-color:#6753b8; border-radius:50%; color:#6753b8; transform:rotate(5deg); }
+.commercial .convictions-purpose article:last-child .conviction-purpose-symbol { background:var(--violet); border-color:#6753b8; border-radius:50%; color:#6753b8;  }
 .commercial .convictions-purpose .landing-label { margin-bottom:24px; }
 .commercial .convictions-values article { --value-accent:var(--lime); --value-ink:#657700; border-top:0; padding-top:0; }
 .commercial .convictions-values article:nth-child(even) { --value-accent:var(--violet); --value-ink:#6753b8; }
 .commercial .convictions-values article:last-child { --value-accent:#dce8ee; --value-ink:var(--navy); }
-.commercial .conviction-symbol { display:grid; place-items:center; width:56px; height:56px; margin-bottom:24px; border:1px solid var(--value-ink); border-radius:14px 14px 14px 3px; background:var(--value-accent); color:var(--value-ink); transform:rotate(-5deg); }
+.commercial .conviction-symbol { display:grid; place-items:center; width:56px; height:56px; margin-bottom:24px; border:1px solid var(--value-ink); border-radius:7px; background:var(--value-accent); color:var(--value-ink);  }
 .commercial .conviction-symbol svg { display:block; width:26px; height:26px; }
-.commercial .convictions-values article:nth-child(even) .conviction-symbol { border-radius:50%; transform:rotate(5deg); }
-.commercial .convictions-values article:nth-child(3) .conviction-symbol { border-radius:50% 50% 7px 7px; }
+.commercial .convictions-values article:nth-child(even) .conviction-symbol { border-radius:50%;  }
 @media(min-width:1101px) {
  .commercial .convictions-values article:nth-child(even) { padding-top:24px; }
 }
