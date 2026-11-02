@@ -107,3 +107,26 @@ header.nav.header-column-grid .nav-cta:focus-visible span { background:var(--nav
  header.nav.header-column-grid .nav-cta,
  header.nav.header-column-grid .nav-cta span { transition:none; }
 }
+
+/* Navigation mobile dépliable ; les liens restent accessibles sans JavaScript. */
+header.nav.header-column-grid .header-menu-toggle { display:none; align-items:center; justify-content:center; flex:none; width:44px; height:44px; padding:10px; border:1px solid var(--navy); border-radius:5px; background:white; color:var(--navy); cursor:pointer; }
+header.nav.header-column-grid .header-menu-toggle[hidden],
+header.nav.header-column-grid nav[hidden] { display:none; }
+.header-menu-toggle svg path { transform-origin:12px 12px; transition:transform 180ms ease-out,opacity 180ms ease-out; }
+.header-menu-toggle[aria-expanded="true"] .menu-line-top { transform:translateY(6px) rotate(45deg); transform-origin:12px 6px; }
+.header-menu-toggle[aria-expanded="true"] .menu-line-middle { opacity:0; }
+.header-menu-toggle[aria-expanded="true"] .menu-line-bottom { transform:translateY(-6px) rotate(-45deg); transform-origin:12px 18px; }
+@media(max-width:1100px) {
+ header.nav.header-column-grid[data-menu-ready] { gap:0 20px; padding-block:16px; }
+ header.nav.header-column-grid[data-menu-ready] .header-menu-toggle { display:inline-flex; }
+ header.nav.header-column-grid[data-menu-ready] nav { flex-basis:100%; flex-direction:column; align-items:stretch; flex-wrap:nowrap; gap:4px; margin-top:16px; padding-top:12px; border-top:1px solid var(--line); }
+ header.nav.header-column-grid[data-menu-ready] nav>a { display:flex; justify-content:flex-start; min-height:44px; padding:10px 0; font-size:var(--type-base); line-height:1.5; }
+ header.nav.header-column-grid[data-menu-ready] nav>a:not(.nav-cta)::after { inset-inline:0 auto; width:32px; bottom:3px; }
+ header.nav.header-column-grid[data-menu-ready] nav>.nav-cta { justify-content:center; padding:9px 12px; margin-top:8px; }
+}
+@media(hover:hover) and (pointer:fine) {
+ header.nav.header-column-grid .header-menu-toggle:hover { background:var(--lime); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .header-menu-toggle svg path { transition:none; }
+}
