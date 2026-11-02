@@ -3,6 +3,14 @@
  const button = document.querySelector('.hero-film-toggle');
  if (!video || !button) return;
  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+ const container = video.closest('.landing-film');
+ const formats = {
+  square: ['assets/video/presstora-v1-square.mp4', 'assets/video/presstora-v1-square.jpg'],
+  landscape: ['assets/video/presstora-v1-720.mp4', 'assets/video/presstora-v1-poster.jpg'],
+  portrait: ['assets/video/presstora-v1-portrait.mp4', 'assets/video/presstora-v1-portrait.jpg']
+ };
+ let selectedFormat;
+ let resizeTimer;
  let inView = true;
  let userPaused = reduceMotion.matches;
  video.controls = false;
@@ -38,6 +46,35 @@
  if ('IntersectionObserver' in window) {
   new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; sync(); }, {threshold:0.05}).observe(video);
  }
+ const selectFormat = () => {
+  const {width, height} = container.getBoundingClientRect();
+  if (!width || !height) return;
+  const ratio = width / height;
+  const format = ratio < .75 ? 'portrait' : ratio > 1.5 ? 'landscape' : 'square';
+  if (format === selectedFormat) return;
+  selectedFormat = format;
+  const [src, poster] = formats[format];
+  video.dataset.format = format;
+  video.dataset.src = src;
+  video.poster = poster;
+  if (video.getAttribute('src')) {
+   const time = video.currentTime;
+   video.preload = 'metadata';
+   video.src = src;
+   video.addEventListener('loadedmetadata', () => {
+    if (selectedFormat !== format) return;
+    video.currentTime = Math.min(time, video.duration || time);
+    sync();
+   }, {once:true});
+  }
+  sync();
+ };
+ selectFormat();
+ if ('ResizeObserver' in window) {
+  new ResizeObserver(() => {
+   clearTimeout(resizeTimer);
+   resizeTimer = setTimeout(selectFormat, 160);
+  }).observe(container);
+ } else window.addEventListener('resize', selectFormat);
  updateButton();
- sync();
 })();
