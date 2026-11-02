@@ -710,8 +710,8 @@ body.solution-zoom-open { overflow:hidden; }
 .commercial .convictions-heading { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:center; gap:var(--conviction-gap); margin-bottom:clamp(32px,4.166667vw,80px); }
 .commercial .convictions-heading p { margin:0; max-width:52ch; }
 .commercial .convictions-purpose { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--navy); border:1px solid var(--navy); border-radius:7px; overflow:hidden; }
-.commercial .convictions-purpose article { min-width:0; padding:var(--conviction-gap); border-radius:6px; background:#f4f5f3; }
-.commercial .convictions-purpose article:last-child { background:#f2eefc; }
+.commercial .convictions-purpose article { min-width:0; padding:var(--conviction-gap); border-radius:6px; background:#f4ffdb; }
+.commercial .convictions-purpose article:last-child { background:#eee9ff; }
 .commercial .convictions-purpose .landing-label { color:var(--navy); }
 .commercial .convictions-purpose article:last-child .landing-label { color:#6753b8; }
 .commercial .convictions-purpose p { font-size:var(--type-1); line-height:1.5; color:var(--navy); margin:0; max-width:54ch; }
@@ -731,4 +731,28 @@ body.solution-zoom-open { overflow:hidden; }
 }
 @media(max-width:700px) {
  .commercial .convictions-heading,.commercial .convictions-purpose,.commercial .convictions-values,.commercial #questions { grid-template-columns:1fr; }
+}
+
+/* Accents graphiques des convictions : mêmes pictos et palette que l’application. */
+.commercial .conviction-purpose-symbol { display:grid; place-items:center; flex:none; width:44px; height:44px; margin-right:4px; background:var(--lime); border:1px solid #657700; border-radius:7px; color:#657700; transform:rotate(-5deg); }
+.commercial .conviction-purpose-symbol svg { width:24px; height:24px; }
+.commercial .convictions-purpose article:last-child .conviction-purpose-symbol { background:var(--violet); border-color:#6753b8; border-radius:50%; color:#6753b8; transform:rotate(5deg); }
+.commercial .convictions-purpose .landing-label { margin-bottom:24px; }
+.commercial .convictions-values article { --value-accent:var(--lime); --value-ink:#657700; border-top:0; padding-top:0; }
+.commercial .convictions-values article:nth-child(even) { --value-accent:var(--violet); --value-ink:#6753b8; }
+.commercial .convictions-values article:last-child { --value-accent:#dce8ee; --value-ink:var(--navy); }
+.commercial .conviction-symbol { display:grid; place-items:center; width:56px; height:56px; margin-bottom:24px; border:1px solid var(--value-ink); border-radius:14px 14px 14px 3px; background:var(--value-accent); color:var(--value-ink); transform:rotate(-5deg); }
+.commercial .conviction-symbol svg { display:block; width:26px; height:26px; }
+.commercial .convictions-values article:nth-child(even) .conviction-symbol { border-radius:50%; transform:rotate(5deg); }
+.commercial .convictions-values article:nth-child(3) .conviction-symbol { border-radius:50% 50% 7px 7px; }
+@media(min-width:1101px) {
+ .commercial .convictions-values article:nth-child(even) { padding-top:24px; }
+}
+@media(max-width:700px) {
+ .commercial .convictions-values { gap:32px; }
+ .commercial .convictions-values article { display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:20px; align-items:start; }
+ .commercial .conviction-symbol { width:44px; height:44px; grid-row:1 / 3; margin:2px 0 0; }
+ .commercial .conviction-symbol svg { width:22px; height:22px; }
+ .commercial .convictions-values h3,.commercial .convictions-values p { grid-column:2; }
+ .commercial .convictions-values p { margin-top:8px; }
 }
