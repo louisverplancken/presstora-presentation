@@ -49,3 +49,8 @@ header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
  .commercial .landing-hero-copy { padding:40px var(--landing-inset); }
  .commercial .landing-hero h1 { max-width:19ch; }
 }
+
+/* Un cran de moins dans l’échelle web pour le titre du bandeau. */
+@media(min-width:1151px) {
+ .commercial .landing-hero h1 { font-size:var(--type-5); max-width:100%; }
+}
