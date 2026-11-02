@@ -30,3 +30,22 @@ header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
  header.nav.header-column-grid nav { width:100%; flex-wrap:wrap; justify-content:flex-start; gap:12px 24px; }
  header.nav.header-column-grid nav>a { font-size:12.8px; min-height:44px; }
 }
+
+/* Film V1 : cadrage paysage entier, sans recadrage destructif. */
+.commercial .landing-hero { grid-template-columns:minmax(0,5fr) minmax(0,7fr); }
+.commercial .landing-hero-copy { justify-content:center; }
+.commercial .landing-film { position:relative; min-width:0; display:flex; align-items:center; background:var(--soft); border-left:1px solid var(--navy); }
+.commercial .landing-film video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:white; }
+.commercial .hero-film-toggle { position:absolute; bottom:16px; right:16px; display:grid; place-items:center; width:40px; height:40px; padding:0; color:var(--navy); background:white; border:1px solid var(--navy); border-radius:50%; cursor:pointer; }
+.commercial .hero-film-toggle[hidden] { display:none; }
+.hero-film-toggle .film-pause { display:none; }
+.hero-film-toggle[data-playing="true"] .film-play { display:none; }
+.hero-film-toggle[data-playing="true"] .film-pause { display:block; }
+.hero-film-toggle:focus-visible { outline:3px solid var(--violet); outline-offset:3px; }
+.commercial .hero-film-toggle:hover { background:var(--lime); }
+@media(max-width:1000px) {
+ .commercial .landing-hero { grid-template-columns:1fr; }
+ .commercial .landing-film { border-left:0; border-top:1px solid var(--navy); }
+ .commercial .landing-hero-copy { padding:40px var(--landing-inset); }
+ .commercial .landing-hero h1 { max-width:19ch; }
+}
