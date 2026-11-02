@@ -3,7 +3,7 @@
    Centrage structurel commun, puis correction optique du logo. */
 header.nav.header-column-grid {
  --header-column:calc(100vw / 12);
- --header-logo-width:calc(var(--header-column) * 2);
+ --header-logo-width:clamp(144px,calc(var(--header-column) * 1.5),216px);
  /* Équivalent optique à margin-top:-1.1vw dans le centrage flex :
     décalage réel de -0.55vw, soit -3.3 % de la largeur du logo.
     La transformation garde la hauteur du header et la cible du lien cohérentes. */
@@ -20,13 +20,13 @@ header.nav.header-column-grid {
 }
 header.header-column-grid>a { flex:none; display:flex; align-items:center; transform:translateY(var(--header-logo-optical-y)); }
 header.header-column-grid img { display:block; width:var(--header-logo-width); height:auto; }
-header.nav.header-column-grid nav { display:flex; width:auto; flex-wrap:nowrap; align-items:center; justify-content:flex-end; gap:32px; }
+header.nav.header-column-grid nav { display:flex; width:auto; flex-wrap:nowrap; align-items:center; justify-content:flex-end; gap:24px; }
 header.nav.header-column-grid nav>a { display:inline-flex; align-items:center; white-space:nowrap; }
 header.nav.header-column-grid .nav-cta { margin-left:0; min-height:48px; }
 /* L'essai en fractions de colonnes concerne l'écran large.
    Sur petit écran, les liens reviennent à la ligne avec des retraits minimaux. */
-@media(max-width:900px) {
- header.nav.header-column-grid { --header-logo-width:160px; padding:20px 24px; flex-wrap:wrap; gap:20px; }
+@media(max-width:1100px) {
+ header.nav.header-column-grid { --header-logo-width:144px; padding:20px 24px; flex-wrap:wrap; gap:20px; }
  header.nav.header-column-grid nav { width:100%; flex-wrap:wrap; justify-content:flex-start; gap:12px 24px; }
  header.nav.header-column-grid nav>a { font-size:12.8px; min-height:44px; }
 }
